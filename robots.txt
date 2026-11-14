@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://8rytdz8k66-cyber.github.io/catalogo-tg/sitemap.xml
