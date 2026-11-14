@@ -189,6 +189,36 @@ body.gated{overflow:hidden}
 .gate-in .btn{width:100%}
 .intro .hi{color:var(--neon);font-weight:800}
 
+/* Chat da Vic */
+#chat{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.7);display:flex;align-items:flex-end;justify-content:center}
+#chat[hidden]{display:none}
+.sheet{width:min(520px,100%);height:min(88dvh,720px);background:var(--soot);border:1px solid var(--rim);border-bottom:0;border-radius:24px 24px 0 0;
+  display:flex;flex-direction:column;overflow:hidden;animation:up .3s cubic-bezier(.2,.8,.2,1)}
+@keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.chat-top{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--rim)}
+.chat-top img{width:40px;height:40px;border-radius:50%;border:2px solid var(--neon);object-fit:cover}
+.chat-top div{flex:1;display:flex;flex-direction:column;line-height:1.2}
+.chat-top span{color:var(--ash);font-size:13px}
+.chat-top .x{width:44px;height:44px;border-radius:50%;border:0;background:transparent;color:var(--white);font-size:30px;line-height:1;cursor:pointer}
+.log{flex:1;overflow-y:auto;padding:18px 16px;display:flex;flex-direction:column;gap:8px;overscroll-behavior:contain}
+.msg{max-width:84%;padding:10px 14px;border-radius:18px;font-size:16px;line-height:1.4;white-space:pre-line;animation:pop .2s ease}
+@keyframes pop{from{transform:scale(.96);opacity:0}to{transform:none;opacity:1}}
+.msg.bot{background:#161c14;border:1px solid var(--rim);align-self:flex-start;border-bottom-left-radius:6px}
+.msg.me{background:var(--neon);color:var(--black);font-weight:650;align-self:flex-end;border-bottom-right-radius:6px}
+.msg.dots{color:var(--ash);letter-spacing:.2em}
+.quick{display:flex;flex-wrap:wrap;gap:8px;padding:0 16px 10px}
+.quick:empty{display:none}
+.quick .chip{min-height:44px}
+.quick .btn{width:100%;min-height:54px;font-size:17px}
+.say{display:flex;gap:8px;padding:10px 12px calc(12px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--rim)}
+.say[hidden]{display:none}
+.say input{flex:1;min-width:0;min-height:50px;border-radius:999px;border:1.5px solid var(--rim);background:var(--black);color:var(--white);font:inherit;font-size:16px;padding:0 18px}
+.say input:focus{outline:none;border-color:var(--neon)}
+.say button{width:50px;height:50px;border-radius:50%;border:0;background:var(--neon);color:var(--black);display:grid;place-items:center;cursor:pointer}
+.say button svg{width:22px;height:22px}
+body.chatting{overflow:hidden}
+@media (prefers-reduced-motion:reduce){.sheet,.msg{animation:none}}
+
 @media (max-width:860px){
   .hero{grid-template-columns:1fr;text-align:left}
   .ring{width:min(78vw,320px);order:-1}
@@ -241,11 +271,11 @@ body.gated{overflow:hidden}
     <div>
       <h1>Seu próximo carro, sua moto ou aquele produto do Paraguai. Eu resolvo.</h1>
       <p>Sou consultor de vendas em Fortaleza e região. Compro, vendo, troco e busco veículos, e trago do Paraguai o que você pedir.</p>
-      <a class="btn wa" data-msg="Olá! Vim pelo site da PV Vendas e quero atendimento." href="https://wa.me/5585986812394">
+      <button class="btn" type="button" data-flow="">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.3L3 21z"/></svg>
-        Chamar no WhatsApp
-      </a>
-      <span class="phone">(85) 98681-2394 · resposta pelo WhatsApp</span>
+        Começar atendimento
+      </button>
+      <span class="phone">Prefere direto? <a class="wa" data-msg="Olá! Vim pelo site da PV Vendas." href="https://wa.me/5585986812394">Chame no WhatsApp (85) 98681-2394</a></span>
     </div>
     <div class="ring">
       <img src="foto.jpg" alt="Pedro, consultor da PV Vendas, segurando dinheiro e uma prancheta" width="512" height="512" fetchpriority="high">
@@ -256,31 +286,29 @@ body.gated{overflow:hidden}
   <section id="servicos" aria-labelledby="t-servicos">
     <div class="wrap">
       <h2 id="t-servicos">O que eu faço por você</h2>
-      <p class="intro" id="intro-serv"><span class="hi" id="hello"></span>Escolha o que precisa. O botão já abre o WhatsApp com a mensagem pronta.</p>
+      <p class="intro" id="intro-serv"><span class="hi" id="hello"></span>Escolha o que precisa. A Vic, minha consultora, faz umas perguntas rápidas e me passa tudo no WhatsApp.</p>
       <div class="cards">
         <article class="card">
           <h3>Carros e motos</h3>
           <p>Quer comprar, vender ou trocar? Eu cuido da negociação pra você não perder tempo nem dinheiro.</p>
           <div class="acts">
-            <a class="chip wa" data-msg="Olá! Quero comprar um carro ou moto." href="https://wa.me/5585986812394">Quero comprar</a>
-            <a class="chip wa" data-msg="Olá! Quero vender meu carro ou moto." href="https://wa.me/5585986812394">Quero vender</a>
-            <a class="chip wa" data-msg="Olá! Quero trocar meu carro ou moto." href="https://wa.me/5585986812394">Quero trocar</a>
+            <button class="chip" type="button" data-flow="comprar">Quero comprar</button>
+            <button class="chip" type="button" data-flow="vender">Quero vender</button>
+            <button class="chip" type="button" data-flow="trocar">Quero trocar</button>
           </div>
         </article>
         <article class="card feature">
           <h3>Busco o carro pra você</h3>
           <p>Me diz modelo, ano e quanto quer pagar. Eu procuro as opções e te mando no WhatsApp.</p>
           <div class="acts">
-            <a class="chip wa" data-msg="Olá! Quero que você busque um carro pra mim. Modelo: | Ano: | Até R$:" href="https://wa.me/5585986812394">Pedir uma busca</a>
+            <button class="chip" type="button" data-flow="buscar">Pedir uma busca</button>
           </div>
         </article>
         <article class="card">
           <h3>Produtos do Paraguai</h3>
-          <p>Quer algo do Paraguai? Eu trago. Escreva os produtos e peça o orçamento.</p>
-          <label for="prod">Quais produtos você quer?</label>
-          <textarea id="prod" placeholder="Ex.: iPhone 15 128GB, perfume, fone JBL"></textarea>
+          <p>Quer algo do Paraguai? Eu trago. Me diz os produtos e eu passo o orçamento.</p>
           <div class="acts">
-            <a class="chip wa" id="btn-py" data-msg="Olá! Quero produtos do Paraguai." href="https://wa.me/5585986812394">Pedir orçamento</a>
+            <button class="chip" type="button" data-flow="paraguai">Pedir orçamento</button>
           </div>
         </article>
       </div>
@@ -330,10 +358,10 @@ body.gated{overflow:hidden}
     <div class="wrap">
       <h2 id="t-final">Bora fechar negócio?</h2>
       <p>Me chama no WhatsApp e diz o que você procura. Troca, compra ou venda.</p>
-      <a class="btn wa" data-msg="Olá! Vim pelo site da PV Vendas e quero atendimento." href="https://wa.me/5585986812394">
+      <button class="btn" type="button" data-flow="">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.3L3 21z"/></svg>
-        Chamar no WhatsApp
-      </a>
+        Começar atendimento
+      </button>
     </div>
   </section>
 </main>
@@ -369,24 +397,40 @@ body.gated{overflow:hidden}
   </div>
 </footer>
 
-<a class="float wa" data-msg="Olá! Vim pelo site da PV Vendas." href="https://wa.me/5585986812394" aria-label="Chamar no WhatsApp">
+<button class="float" type="button" data-flow="" aria-label="Falar com a consultora Vic">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.3L3 21z"/></svg>
-</a>
+</button>
+
+<div id="chat" role="dialog" aria-modal="true" aria-labelledby="t-chat" hidden>
+  <div class="sheet">
+    <div class="chat-top">
+      <img src="foto.jpg" alt="" width="40" height="40">
+      <div><strong id="t-chat">Vic · PV Vendas</strong><span>Consultora de atendimento</span></div>
+      <button type="button" class="x" id="chat-x" aria-label="Fechar atendimento">×</button>
+    </div>
+    <div class="log" id="log" aria-live="polite"></div>
+    <div class="quick" id="quick"></div>
+    <form class="say" id="say">
+      <label for="say-in" class="skip">Sua resposta</label>
+      <input id="say-in" type="text" placeholder="Digite sua resposta" autocomplete="off" enterkeyhint="send">
+      <button type="submit" aria-label="Enviar resposta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </form>
+  </div>
+</div>
 
 <script>
 (function(){
   var base='https://wa.me/5585986812394?text=';
-  var prod=document.getElementById('prod');
   var nome='';
   function link(a){
     var m=a.getAttribute('data-msg');
     if(nome) m=m.replace('Olá!','Olá! Meu nome é '+nome+'.');
-    if(a.id==='btn-py'&&prod.value.trim()) m+='\nProdutos:\n'+prod.value.trim();
     a.href=base+encodeURIComponent(m);
   }
   var all=document.querySelectorAll('a.wa');
   all.forEach(function(a){a.target='_blank';a.rel='noopener';link(a);});
-  prod.addEventListener('input',function(){link(document.getElementById('btn-py'));});
 
   var gate=document.getElementById('gate'), inp=document.getElementById('nome'), err=document.getElementById('gate-err');
   try{var salvo=localStorage.getItem('pv-nome');if(salvo)inp.value=salvo;}catch(e){}
@@ -406,6 +450,117 @@ body.gated{overflow:hidden}
     setTimeout(function(){alvo.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});},250);
   });
   inp.addEventListener('input',function(){if(inp.value.trim())err.textContent='';});
+
+  /* ---------- Vic: atendimento guiado, uma pergunta por vez ---------- */
+  var chat=document.getElementById('chat'), log=document.getElementById('log'), quick=document.getElementById('quick'),
+      say=document.getElementById('say'), sayIn=document.getElementById('say-in'), lastFocus=null;
+  var HORA=['Manhã','Tarde','Noite','Qualquer horário'];
+  var TIPO=['Carro','Moto'];
+  var FLOWS={
+    comprar:{titulo:'Quero comprar',passos:[
+      {k:'Tipo',q:'Você procura carro ou moto?',o:TIPO},
+      {k:'Modelo',q:'Tem algum modelo em mente? Se não tiver, me diz o estilo (ex.: hatch, SUV, popular).'},
+      {k:'Ano mínimo',q:'A partir de que ano?'},
+      {k:'Até quanto',q:'Até quanto você quer pagar?'},
+      {k:'Pagamento',q:'Como pretende pagar?',o:['À vista','Financiado','Dar um veículo na troca']}]},
+    buscar:{titulo:'Busca de veículo',passos:[
+      {k:'Tipo',q:'Bora achar seu veículo! É carro ou moto?',o:TIPO},
+      {k:'Modelo',q:'Qual modelo você quer? Pode citar mais de um.'},
+      {k:'Ano mínimo',q:'A partir de que ano?'},
+      {k:'Até quanto',q:'Até quanto você quer pagar?'},
+      {k:'Pagamento',q:'Como pretende pagar?',o:['À vista','Financiado','Dar um veículo na troca']}]},
+    vender:{titulo:'Quero vender',passos:[
+      {k:'Tipo',q:'É carro ou moto?',o:TIPO},
+      {k:'Modelo e ano',q:'Qual o modelo e o ano?'},
+      {k:'Quilometragem',q:'Quantos km ele tem, mais ou menos?'},
+      {k:'Valor desejado',q:'Quanto você quer nele?'}]},
+    trocar:{titulo:'Quero trocar',passos:[
+      {k:'Meu veículo',q:'Me conta do seu veículo: modelo, ano e km.'},
+      {k:'Quero no lugar',q:'E o que você quer no lugar dele?'},
+      {k:'Volta dinheiro',q:'Pensa em voltar dinheiro na troca?',o:['Sim','Não','Depende']}]},
+    paraguai:{titulo:'Produtos do Paraguai',passos:[
+      {k:'Produtos',q:'Quais produtos você quer? Diz modelo, cor e capacidade, se tiver.'},
+      {k:'Quantidade',q:'Quantas unidades?'},
+      {k:'Prazo',q:'Pra quando você precisa?',o:['O quanto antes','Até 15 dias','Sem pressa']}]}
+  };
+  var COMUM=[{k:'Bairro/cidade',q:'Em qual bairro ou cidade você está?'},{k:'Melhor horário',q:'Qual o melhor horário pro Pedro falar com você?',o:HORA}];
+  var estado=null;
+  function primeiro(){return (nome||'').split(' ')[0];}
+  function bolha(t,quem){var d=document.createElement('div');d.className='msg '+quem;d.textContent=t;log.appendChild(d);log.scrollTop=log.scrollHeight;return d;}
+  function bot(t,depois){
+    var d=bolha('•••','bot dots');
+    setTimeout(function(){d.className='msg bot';d.textContent=t;log.scrollTop=log.scrollHeight;if(depois)depois();},reduceM?0:550);
+  }
+  var reduceM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function opcoes(lista,cb){
+    quick.innerHTML='';
+    lista.forEach(function(o){var b=document.createElement('button');b.type='button';b.className='chip';b.textContent=o;
+      b.addEventListener('click',function(){cb(o);});quick.appendChild(b);});
+    log.scrollTop=log.scrollHeight;
+  }
+  function perguntar(){
+    var p=estado.passos[estado.i];
+    quick.innerHTML=''; say.hidden=true;
+    bot(p.q,function(){
+      if(p.o){opcoes(p.o,responder);say.hidden=false;sayIn.placeholder='Ou digite outra resposta';}
+      else{say.hidden=false;sayIn.placeholder='Digite sua resposta';sayIn.focus({preventScroll:true});}
+    });
+  }
+  function responder(t){
+    t=String(t).trim(); if(!t||!estado) return;
+    bolha(t,'me'); quick.innerHTML=''; sayIn.value='';
+    estado.r.push([estado.passos[estado.i].k,t]); estado.i++;
+    if(estado.i<estado.passos.length) perguntar(); else fechar();
+  }
+  function escolher(f){
+    estado={f:f,titulo:FLOWS[f].titulo,passos:FLOWS[f].passos.concat(COMUM),i:0,r:[]};
+    perguntar();
+  }
+  function menu(){
+    say.hidden=true;
+    bot('Me diz: o que você procura hoje?',function(){
+      opcoes(['Comprar','Vender','Trocar','Buscar um veículo','Produtos do Paraguai'],function(o){
+        bolha(o,'me');quick.innerHTML='';
+        escolher({'Comprar':'comprar','Vender':'vender','Trocar':'trocar','Buscar um veículo':'buscar','Produtos do Paraguai':'paraguai'}[o]);
+      });
+    });
+  }
+  function fechar(){
+    say.hidden=true;
+    var linhas=['Olá! Vim pelo site da PV Vendas.','','📋 '+estado.titulo.toUpperCase(),'Nome: '+(nome||'-')];
+    estado.r.forEach(function(x){linhas.push(x[0]+': '+x[1]);});
+    if(estado.f==='vender') linhas.push('','Vou mandar as fotos aqui.');
+    var url=base+encodeURIComponent(linhas.join('\n'));
+    var hr=estado.r[estado.r.length-1][1].toLowerCase();
+    bot('Perfeito, '+primeiro()+'! Anotei tudo. 👊',function(){
+      bot((estado.f==='vender'?'Toque no botão pra mandar o resumo pro Pedro e já envie as fotos por lá.':'Toque no botão pra mandar o resumo pro Pedro. Ele te responde'+(hr==='qualquer horário'?' assim que puder.':' de '+hr+'.')),function(){
+        quick.innerHTML='';
+        var a=document.createElement('a');a.className='btn';a.href=url;a.target='_blank';a.rel='noopener';
+        a.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.3L3 21z"/></svg> Enviar resumo no WhatsApp';
+        quick.appendChild(a);
+        var r=document.createElement('button');r.type='button';r.className='chip';r.textContent='Começar de novo';
+        r.addEventListener('click',function(){log.innerHTML='';quick.innerHTML='';estado=null;menu();});
+        quick.appendChild(r);
+        log.scrollTop=log.scrollHeight;
+        a.focus({preventScroll:true});
+      });
+    });
+  }
+  function abrir(f){
+    lastFocus=document.activeElement;
+    chat.hidden=false; document.body.classList.add('chatting');
+    log.innerHTML=''; quick.innerHTML=''; estado=null; say.hidden=true;
+    bot('Oi'+(nome?', '+primeiro():'')+'! Eu sou a Vic, consultora da PV Vendas. Vou te fazer umas perguntas rápidas pra passar tudo certinho pro Pedro.',function(){
+      if(f){escolher(f);} else menu();
+    });
+    document.getElementById('chat-x').focus({preventScroll:true});
+  }
+  function sair(){chat.hidden=true;document.body.classList.remove('chatting');estado=null;if(lastFocus)lastFocus.focus({preventScroll:true});}
+  document.querySelectorAll('[data-flow]').forEach(function(b){b.addEventListener('click',function(){abrir(b.getAttribute('data-flow'));});});
+  document.getElementById('chat-x').addEventListener('click',sair);
+  chat.addEventListener('click',function(e){if(e.target===chat)sair();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!chat.hidden)sair();});
+  say.addEventListener('submit',function(e){e.preventDefault();responder(sayIn.value);});
 
   var fl=document.querySelector('.float'), hero=document.querySelector('.hero .btn');
   if('IntersectionObserver' in window){
