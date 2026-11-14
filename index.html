@@ -79,6 +79,11 @@ footer{text-align:center;color:var(--muted);font-size:13px}
 .field .tip{color:var(--muted);font-size:13px}
 .field.need input{border-color:#ff5a4f;box-shadow:0 0 0 3px rgba(255,90,79,.25)}
 .field.need .tip{color:#ff8a80;font-weight:700}
+.loc-row{display:flex;gap:8px}
+.loc-row input{flex:1;min-width:0}
+.gps{font:inherit;font-weight:800;font-size:14px;color:var(--ink);background:var(--neon);border:0;border-radius:12px;padding:0 14px;min-height:52px;cursor:pointer;white-space:nowrap}
+.gps:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+.gps[disabled]{opacity:.6}
 body.locked a.item, body.locked a.cta{opacity:.45;filter:grayscale(.6)}
 body.locked a.item:hover{transform:none;border-color:var(--line)}
 
@@ -108,6 +113,15 @@ body.locked a.item:hover{transform:none;border-color:var(--line)}
     <label for="nome">Seu nome (obrigatório)</label>
     <input id="nome" type="text" placeholder="Digite seu nome" autocomplete="name" required aria-describedby="aviso">
     <span class="tip" id="aviso">Coloque seu nome para liberar os preços</span>
+  </div>
+
+  <div class="field" id="f-loc">
+    <label for="loc">Sua localização (obrigatório)</label>
+    <div class="loc-row">
+      <input id="loc" type="text" placeholder="Rua, número e bairro" autocomplete="street-address" required aria-describedby="aviso-loc">
+      <button type="button" class="gps" id="gps">📍 Usar GPS</button>
+    </div>
+    <span class="tip" id="aviso-loc">Digite o endereço ou toque em Usar GPS</span>
   </div>
 
   <section aria-labelledby="vf">
@@ -184,7 +198,11 @@ body.locked a.item:hover{transform:none;border-color:var(--line)}
 
   var nome=document.getElementById('nome');
   var field=nome.parentNode;
-  try{var s=localStorage.getItem('tg-nome');if(s)nome.value=s;}catch(e){}
+  var loc=document.getElementById('loc');
+  var fLoc=document.getElementById('f-loc');
+  var gps=document.getElementById('gps');
+  var avisoLoc=document.getElementById('aviso-loc');
+  try{var s=localStorage.getItem('tg-nome');if(s)nome.value=s;var l=localStorage.getItem('tg-loc');if(l)loc.value=l;}catch(e){}
   var links=document.querySelectorAll('a.item, a.cta');
   links.forEach(function(a){
     var parts=a.getAttribute('href').split('?text=');
@@ -192,28 +210,46 @@ body.locked a.item:hover{transform:none;border-color:var(--line)}
     a.dataset.msg=decodeURIComponent(parts[1]);
   });
   function update(){
-    var n=nome.value.trim();
-    try{localStorage.setItem('tg-nome',n);}catch(e){}
+    var n=nome.value.trim(), l=loc.value.trim(), ok=n&&l;
+    try{localStorage.setItem('tg-nome',n);localStorage.setItem('tg-loc',l);}catch(e){}
     links.forEach(function(a){
       var m=a.dataset.msg;
       if(n) m=m.replace('Olá!','Olá! Meu nome é '+n+'.');
+      if(l) m+='\nLocalização: '+l;
       a.href=a.dataset.base+'?text='+encodeURIComponent(m);
+      if(ok) a.removeAttribute('aria-disabled'); else a.setAttribute('aria-disabled','true');
     });
     if(n) field.classList.remove('need');
-    document.body.classList.toggle('locked',!n);
-    document.getElementById('aviso').textContent = n ? 'Agora toque no preço que você quer' : 'Coloque seu nome para liberar os preços';
-    links.forEach(function(a){ if(n) a.removeAttribute('aria-disabled'); else a.setAttribute('aria-disabled','true'); });
+    if(l) fLoc.classList.remove('need');
+    document.body.classList.toggle('locked',!ok);
+    document.getElementById('aviso').textContent = n ? (l ? 'Agora toque no preço que você quer' : 'Falta só a localização') : 'Coloque seu nome para liberar os preços';
   }
   nome.addEventListener('input',update);
+  loc.addEventListener('input',update);
+  gps.addEventListener('click',function(){
+    if(!navigator.geolocation){avisoLoc.textContent='Seu celular não liberou o GPS. Digite o endereço.';return;}
+    gps.disabled=true; gps.textContent='Buscando...';
+    navigator.geolocation.getCurrentPosition(function(p){
+      loc.value='https://maps.google.com/?q='+p.coords.latitude.toFixed(6)+','+p.coords.longitude.toFixed(6);
+      gps.disabled=false; gps.textContent='📍 Usar GPS';
+      avisoLoc.textContent='Localização pega! Se quiser, troque pelo endereço.';
+      update();
+    },function(){
+      gps.disabled=false; gps.textContent='📍 Usar GPS';
+      avisoLoc.textContent='Não deu pra pegar o GPS. Digite o endereço.';
+      loc.focus();
+    },{enableHighAccuracy:true,timeout:15000});
+  });
   update();
   links.forEach(function(a){
     a.addEventListener('click',function(e){
-      if(!nome.value.trim()){
+      var alvo=null;
+      if(!nome.value.trim()){field.classList.add('need');document.getElementById('aviso').textContent='Preencha seu nome antes de escolher';alvo=nome;}
+      if(!loc.value.trim()){fLoc.classList.add('need');avisoLoc.textContent='Coloque sua localização antes de escolher';alvo=alvo||loc;}
+      if(alvo){
         e.preventDefault();
-        field.classList.add('need');
-        document.getElementById('aviso').textContent='Preencha seu nome antes de escolher';
-        nome.focus();
-        nome.scrollIntoView({block:'center',behavior:reduce?'auto':'smooth'});
+        alvo.focus();
+        alvo.scrollIntoView({block:'center',behavior:reduce?'auto':'smooth'});
       }
     });
   });
