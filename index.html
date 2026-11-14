@@ -1,7 +1,7 @@
 <!doctype html><html><head><meta charset=utf8>
 <meta property="og:type" content="website">
 <meta property="og:title" content="Catálogo PV Vendas">
-<meta property="og:description" content="Troca, compra ou venda · peça direto no WhatsApp (85) 98681-2394">
+<meta property="og:description" content="Consultor de vendas: carro, moto e produtos do Paraguai · fale no WhatsApp (85) 98681-2394">
 <meta property="og:url" content="https://8rytdz8k66-cyber.github.io/catalogo-tg/">
 <meta property="og:image" content="https://8rytdz8k66-cyber.github.io/catalogo-tg/og.jpg">
 <meta property="og:image:width" content="1200">
@@ -79,6 +79,14 @@ footer{text-align:center;color:var(--muted);font-size:13px}
 .field .tip{color:var(--muted);font-size:13px}
 .field.need input{border-color:#ff5a4f;box-shadow:0 0 0 3px rgba(255,90,79,.25)}
 .field.need .tip{color:#ff8a80;font-weight:700}
+.field textarea{font:inherit;font-size:16px;font-weight:600;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;width:100%;resize:vertical;min-height:110px}
+.field textarea::placeholder{color:var(--muted);font-weight:500}
+.field textarea:focus{outline:none;border-color:var(--neon);box-shadow:0 0 0 3px rgba(125,255,47,.25)}
+.field.need textarea{border-color:#ff5a4f;box-shadow:0 0 0 3px rgba(255,90,79,.25)}
+.lead{margin:-12px 0 0;color:var(--muted);font-size:16px;font-weight:700}
+.lead.small{margin:0;font-size:14px;font-weight:600}
+a.svc .qty{font-size:26px}
+.go{font-family:var(--display);font-size:30px;color:var(--neon);line-height:1}
 .loc-row{display:flex;gap:8px}
 .loc-row input{flex:1;min-width:0}
 .gps{font:inherit;font-weight:800;font-size:14px;color:var(--ink);background:var(--neon);border:0;border-radius:12px;padding:0 14px;min-height:52px;cursor:pointer;white-space:nowrap}
@@ -108,11 +116,12 @@ body.locked a.item:hover{transform:none;border-color:var(--line)}
   </header>
 
   <h1 class="brand">PV Vendas</h1>
+  <p class="lead">Consultor de vendas · carro, moto e produtos do Paraguai</p>
 
   <div class="field">
     <label for="nome">Seu nome (obrigatório)</label>
     <input id="nome" type="text" placeholder="Digite seu nome" autocomplete="name" required aria-describedby="aviso">
-    <span class="tip" id="aviso">Coloque seu nome para liberar os preços</span>
+    <span class="tip" id="aviso">Coloque seu nome para liberar as opções</span>
   </div>
 
   <div class="field" id="f-loc">
@@ -124,58 +133,47 @@ body.locked a.item:hover{transform:none;border-color:var(--line)}
     <span class="tip" id="aviso-loc">Digite o endereço ou toque em Usar GPS</span>
   </div>
 
-  <section aria-labelledby="vf">
-    <h2 id="vf">Venda final</h2>
-    <a class="item" href="https://wa.me/5585986812394?text=Ol%C3%A1!%20Quero%201%20ampola%20de%20TG%20(R%24%20230)" target="_blank" rel="noopener">
-      <span class="qty">1 TG<small>ampola</small></span>
-      <span class="price">R$ 230</span>
+  <section aria-labelledby="cv">
+    <h2 id="cv">1ª consultoria · Carros e motos</h2>
+    <a class="item svc" href="https://wa.me/5585986812394?text=Ol%C3%A1%21%20Quero%20comprar%20um%20carro." target="_blank" rel="noopener">
+      <span class="qty">Comprar carro</span>
+      <span class="go" aria-hidden="true">→</span>
+      <span class="sub">Te ajudo a achar o carro certo pelo melhor preço</span>
     </a>
-    <a class="item" href="https://wa.me/5585986812394?text=Ol%C3%A1!%20Quero%201%20caixa%20de%20TG%20(R%24%20750)" target="_blank" rel="noopener">
-      <span class="qty">1 TG<small>caixa</small></span>
-      <span class="price">R$ 750</span>
+    <a class="item svc" href="https://wa.me/5585986812394?text=Ol%C3%A1%21%20Quero%20vender%20meu%20carro." target="_blank" rel="noopener">
+      <span class="qty">Vender carro</span>
+      <span class="go" aria-hidden="true">→</span>
+      <span class="sub">Anuncio e negocio o seu carro pra você</span>
     </a>
-  </section>
-
-  <section aria-labelledby="rv">
-    <h2 id="rv">Revenda · preço por caixa</h2>
-    <a class="item" href="https://wa.me/5585986812394?text=Ol%C3%A1!%20Quero%20revenda%3A%202%20caixas%20de%20TG%20(R%24%20700%20cada)" target="_blank" rel="noopener">
-      <span class="qty">2 TG<small>caixas</small></span>
-      <span class="price">R$ 700<small>cada</small></span>
-      <span class="sub">Total R$ 1.400</span>
+    <a class="item svc" href="https://wa.me/5585986812394?text=Ol%C3%A1%21%20Quero%20comprar%20uma%20moto." target="_blank" rel="noopener">
+      <span class="qty">Comprar moto</span>
+      <span class="go" aria-hidden="true">→</span>
+      <span class="sub">Busco a moto que você procura</span>
     </a>
-    <a class="item" href="https://wa.me/5585986812394?text=Ol%C3%A1!%20Quero%20revenda%3A%205%20caixas%20de%20TG%20(R%24%20650%20cada)" target="_blank" rel="noopener">
-      <span class="qty">5 TG<small>caixas</small></span>
-      <span class="price">R$ 650<small>cada</small></span>
-      <span class="sub">Total R$ 3.250</span>
+    <a class="item svc" href="https://wa.me/5585986812394?text=Ol%C3%A1%21%20Quero%20vender%20minha%20moto." target="_blank" rel="noopener">
+      <span class="qty">Vender moto</span>
+      <span class="go" aria-hidden="true">→</span>
+      <span class="sub">Vendo a sua moto sem dor de cabeça</span>
     </a>
-    <a class="item" href="https://wa.me/5585986812394?text=Ol%C3%A1!%20Quero%20revenda%3A%2010%20caixas%20de%20TG%20(R%24%20600%20cada)" target="_blank" rel="noopener">
-      <span class="qty">10 TG<small>caixas</small></span>
-      <span class="price">R$ 600<small>cada</small></span>
-      <span class="sub">Total R$ 6.000</span>
+    <a class="item svc" href="https://wa.me/5585986812394?text=Ol%C3%A1%21%20Quero%20que%20voc%C3%AA%20busque%20um%20carro%20pra%20mim." target="_blank" rel="noopener">
+      <span class="qty">Busco o carro pra você</span>
+      <span class="go" aria-hidden="true">→</span>
+      <span class="sub">Me diz o que quer e eu encontro</span>
     </a>
   </section>
 
-  <section aria-labelledby="dr">
-    <h2 id="dr">Consulta do Doutor</h2>
-    <a class="item" href="https://wa.me/5585986812394?text=Ol%C3%A1!%20Quero%20o%20DR.%20NOLONE%20(R%24%20300)" target="_blank" rel="noopener">
-      <span class="qty">DR. NOLONE</span>
-      <span class="price">R$ 300</span>
-    </a>
-    <a class="item" href="https://wa.me/5585986812394?text=Ol%C3%A1!%20Quero%20o%20DR.%20OXA%20(R%24%20250)" target="_blank" rel="noopener">
-      <span class="qty">DR. OXA</span>
-      <span class="price">R$ 250</span>
-    </a>
-    <a class="item" href="https://wa.me/5585986812394?text=Ol%C3%A1!%20Quero%20o%20DR.%20DECA%20(R%24%20195)" target="_blank" rel="noopener">
-      <span class="qty">DR. DECA</span>
-      <span class="price">R$ 195</span>
-    </a>
-    <a class="item" href="https://wa.me/5585986812394?text=Ol%C3%A1!%20Quero%20o%20DR.%20DURA%20(R%24%20200)" target="_blank" rel="noopener">
-      <span class="qty">DR. DURA</span>
-      <span class="price">R$ 200</span>
-    </a>
-    <a class="item" href="https://wa.me/5585986812394?text=Ol%C3%A1!%20Quero%20o%20DR.%20TATO%20(R%24%20200)" target="_blank" rel="noopener">
-      <span class="qty">DR. TATO</span>
-      <span class="price">R$ 200</span>
+  <section aria-labelledby="py">
+    <h2 id="py">2ª consultoria · Produtos do Paraguai</h2>
+    <p class="lead small">Quer algo do Paraguai? Eu trago pra você. Escreva os produtos e mande no WhatsApp.</p>
+    <div class="field" id="f-prod">
+      <label for="prod">Quais produtos você quer?</label>
+      <textarea id="prod" rows="4" placeholder="Ex.: iPhone 15 128GB, perfume, fone JBL..."></textarea>
+      <span class="tip" id="aviso-prod">Um produto por linha, se quiser</span>
+    </div>
+    <a class="item svc" id="btn-py" href="https://wa.me/5585986812394?text=Ol%C3%A1%21%20Quero%20produtos%20do%20Paraguai." target="_blank" rel="noopener">
+      <span class="qty">Pedir do Paraguai</span>
+      <span class="go" aria-hidden="true">→</span>
+      <span class="sub">Mando o orçamento no WhatsApp</span>
     </a>
   </section>
 
@@ -202,6 +200,7 @@ body.locked a.item:hover{transform:none;border-color:var(--line)}
   var fLoc=document.getElementById('f-loc');
   var gps=document.getElementById('gps');
   var avisoLoc=document.getElementById('aviso-loc');
+  var prod=document.getElementById('prod'), fProd=document.getElementById('f-prod');
   try{var s=localStorage.getItem('tg-nome');if(s)nome.value=s;var l=localStorage.getItem('tg-loc');if(l)loc.value=l;}catch(e){}
   var links=document.querySelectorAll('a.item, a.cta');
   links.forEach(function(a){
@@ -215,6 +214,7 @@ body.locked a.item:hover{transform:none;border-color:var(--line)}
     links.forEach(function(a){
       var m=a.dataset.msg;
       if(n) m=m.replace('Olá!','Olá! Meu nome é '+n+'.');
+      if(a.id==='btn-py'&&prod.value.trim()) m+='\nProdutos:\n'+prod.value.trim();
       if(l) m+='\nLocalização: '+l;
       a.href=a.dataset.base+'?text='+encodeURIComponent(m);
       if(ok) a.removeAttribute('aria-disabled'); else a.setAttribute('aria-disabled','true');
@@ -222,10 +222,11 @@ body.locked a.item:hover{transform:none;border-color:var(--line)}
     if(n) field.classList.remove('need');
     if(l) fLoc.classList.remove('need');
     document.body.classList.toggle('locked',!ok);
-    document.getElementById('aviso').textContent = n ? (l ? 'Agora toque no preço que você quer' : 'Falta só a localização') : 'Coloque seu nome para liberar os preços';
+    document.getElementById('aviso').textContent = n ? (l ? 'Agora escolha o que você quer' : 'Falta só a localização') : 'Coloque seu nome para liberar as opções';
   }
   nome.addEventListener('input',update);
   loc.addEventListener('input',update);
+  prod.addEventListener('input',function(){if(prod.value.trim())fProd.classList.remove('need');update();});
   gps.addEventListener('click',function(){
     if(!navigator.geolocation){avisoLoc.textContent='Seu celular não liberou o GPS. Digite o endereço.';return;}
     gps.disabled=true; gps.textContent='Buscando...';
@@ -246,6 +247,7 @@ body.locked a.item:hover{transform:none;border-color:var(--line)}
       var alvo=null;
       if(!nome.value.trim()){field.classList.add('need');document.getElementById('aviso').textContent='Preencha seu nome antes de escolher';alvo=nome;}
       if(!loc.value.trim()){fLoc.classList.add('need');avisoLoc.textContent='Coloque sua localização antes de escolher';alvo=alvo||loc;}
+      if(a.id==='btn-py'&&!prod.value.trim()){fProd.classList.add('need');document.getElementById('aviso-prod').textContent='Escreva quais produtos você quer';alvo=alvo||prod;}
       if(alvo){
         e.preventDefault();
         alvo.focus();
