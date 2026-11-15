@@ -566,18 +566,33 @@ body.chatting{overflow:hidden}
     var d=document.createElement('button');d.type='button';d.className='chip';d.textContent='Prefiro digitar o bairro';
     d.addEventListener('click',function(){
       bolha('Prefiro digitar o bairro','me');quick.innerHTML='';
-      bot('Beleza! Em qual bairro ou cidade você está?',function(){say.hidden=false;sayIn.placeholder='Digite seu bairro ou cidade';sayIn.focus({preventScroll:true});});
+      bot('Beleza! Em qual bairro ou cidade você está?',function(){say.hidden=false;sayIn.placeholder='Digite seu bairro ou cidade';if(estado&&estado.i>0)addVoltar();sayIn.focus({preventScroll:true});});
     });
     quick.appendChild(d);
     log.scrollTop=log.scrollHeight;
   }
+  function addVoltar(alvo){
+    var v=document.createElement('button');v.type='button';v.className='chip';v.textContent='↩ Voltar à pergunta anterior';
+    v.addEventListener('click',function(){voltar(alvo);});
+    quick.appendChild(v); log.scrollTop=log.scrollHeight;
+  }
+  function voltar(salvo){
+    if(salvo) estado=salvo;
+    if(!estado||estado.i<1) return;
+    var alvo=estado.i-1;
+    while(log.children.length>estado.m[alvo]) log.removeChild(log.lastChild);
+    estado.r.length=alvo; estado.i=alvo;
+    perguntar();
+  }
   function perguntar(){
     var p=estado.passos[estado.i];
     quick.innerHTML=''; say.hidden=true;
+    estado.m[estado.i]=log.children.length;
     bot(p.q,function(){
       if(p.gps){botaoGps();say.hidden=true;}
       else if(p.o){opcoes(p.o,responder);say.hidden=false;sayIn.placeholder='Ou digite outra resposta';}
       else{say.hidden=false;sayIn.placeholder='Digite sua resposta';sayIn.focus({preventScroll:true});}
+      if(estado.i>0) addVoltar();
     });
   }
   function responder(t){
@@ -588,7 +603,7 @@ body.chatting{overflow:hidden}
     if(estado.i<estado.passos.length) perguntar(); else fechar();
   }
   function escolher(f){
-    estado={f:f,titulo:FLOWS[f].titulo,passos:FLOWS[f].passos.concat(COMUM),i:0,r:[]};
+    estado={f:f,titulo:FLOWS[f].titulo,passos:FLOWS[f].passos.concat(COMUM),i:0,r:[],m:[]};
     perguntar();
   }
   function menu(curto){
@@ -603,6 +618,7 @@ body.chatting{overflow:hidden}
   }
   function fechar(){
     say.hidden=true;
+    var salvo=estado;
     var linhas=['Olá! Vim pelo site da PV Vendas.','','📋 '+estado.titulo.toUpperCase(),'Nome: '+(nome||'-')];
     estado.r.forEach(function(x){linhas.push(x[0]+': '+x[1]);});
     if(estado.f==='vender') linhas.push('','Vou mandar as fotos aqui.');
@@ -617,6 +633,9 @@ body.chatting{overflow:hidden}
         var r=document.createElement('button');r.type='button';r.className='chip';r.textContent='Começar de novo';
         r.addEventListener('click',function(){log.innerHTML='';quick.innerHTML='';menu();});
         quick.appendChild(r);
+        var c=document.createElement('button');c.type='button';c.className='chip';c.textContent='↩ Corrigir resposta';
+        c.addEventListener('click',function(){salvo.i=salvo.passos.length;voltar(salvo);});
+        quick.insertBefore(c,r);
         log.scrollTop=log.scrollHeight;
         estado=null; say.hidden=false; sayIn.placeholder='Mais alguma dúvida? Escreva aqui';
         a.focus({preventScroll:true});
