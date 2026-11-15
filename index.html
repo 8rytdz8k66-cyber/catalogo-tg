@@ -405,7 +405,7 @@ body.chatting{overflow:hidden}
   <div class="sheet">
     <div class="chat-top">
       <img src="foto.jpg" alt="" width="40" height="40">
-      <div><strong id="t-chat">Vic · PV Vendas</strong><span>Consultora de atendimento</span></div>
+      <div><strong id="t-chat">Vic · PV Vendas</strong><span>Assistente virtual · responde na hora</span></div>
       <button type="button" class="x" id="chat-x" aria-label="Fechar atendimento">×</button>
     </div>
     <div class="log" id="log" aria-live="polite"></div>
@@ -485,6 +485,56 @@ body.chatting{overflow:hidden}
   };
   var COMUM=[{k:'Bairro/cidade',q:'Em qual bairro ou cidade você está?'},{k:'Melhor horário',q:'Qual o melhor horário pro Pedro falar com você?',o:HORA}];
   var estado=null;
+
+  /* Base de conhecimento: só o que está no site. Nada de preço, prazo ou promoção inventados. */
+  var WA_TXT='Não tenho essa informação exata aqui, mas você pode falar direto com nossa equipe pelo WhatsApp para resolvermos isso rápido!';
+  function norm(t){return t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9$ ]/g,' ');}
+  function tem(t,lista){return lista.some(function(w){return (' '+t+' ').indexOf(' '+w)>-1;});}
+  var BASE=[
+    {w:['preco','valor','quanto','custa','tabela','barato','desconto','promoca','oferta'],r:'Os valores mudam conforme o veículo ou o produto. '+WA_TXT,a:'wa'},
+    {w:['pagamento','pagar','pix','cartao','credito','debito','parcel','financ','boleto','entrada'],r:WA_TXT,a:'wa'},
+    {w:['horario','que horas','aberto','funciona','atende hoje','domingo','sabado'],r:WA_TXT,a:'wa'},
+    {w:['garantia','vistoria','document','transferencia','laudo','multa','ipva','seguro'],r:WA_TXT,a:'wa'},
+    {w:['entrega','frete','envia','enviar','mandar pra'],r:'Em Fortaleza e região a gente combina entrega ou encontro. Os detalhes o Pedro acerta com você no WhatsApp.',a:'wa'},
+    {w:['paraguai','importad','iphone','celular','perfume','eletronic','encomend','muamba'],r:'Eu trago do Paraguai o que você pedir. Você me diz os produtos e o Pedro te passa valor e prazo antes de fechar.',a:'paraguai'},
+    {w:['vender','vendo','venda do meu','anunciar'],r:'Dá pra vender com a gente sim. O Pedro divulga e cuida da negociação com os interessados.',a:'vender'},
+    {w:['troca','trocar','troco'],r:'Aceito conversar troca. Me passa os dados do seu veículo e o que você procura.',a:'trocar'},
+    {w:['busca','buscar','procura','encontrar','achar'],r:'Você me diz modelo, ano e quanto quer pagar, e o Pedro procura as opções e te manda no WhatsApp.',a:'buscar'},
+    {w:['comprar','compro','quero um','quero uma','carro','moto','veiculo','hatch','suv','sedan','onix','hb20','gol','civic','corolla','cg','fan','titan','biz','pop'],r:'Bora achar seu veículo! O Pedro trabalha com compra, venda e troca de carros e motos.',a:'comprar'},
+    {w:['onde','regiao','cidade','bairro','fortaleza','atende','local','endereco','loja'],r:'Atendo Fortaleza e região. O atendimento é todo pelo WhatsApp, e a gente combina entrega ou encontro.',a:'menu'},
+    {w:['whatsapp','zap','telefone','numero','contato','falar com','pedro','humano','atendente'],r:'Você fala direto com o Pedro no WhatsApp (85) 98681-2394.',a:'wa'},
+    {w:['instagram','insta'],r:'Lá no Instagram @_pv_vendas_ tem os negócios fechados e as novidades.',a:'insta'},
+    {w:['oi','ola','bom dia','boa tarde','boa noite','eae','opa','salve'],r:function(){return 'Oi'+(nome?', '+primeiro():'')+'! Tô aqui pra te ajudar com carros, motos e produtos do Paraguai.';},a:'menu'},
+    {w:['obrigad','valeu','vlw','brigad'],r:'Por nada! Se precisar, é só chamar. 👊',a:'menu'},
+    {w:['tchau','ate mais','flw','falou'],r:'Até mais! Quando quiser, a PV Vendas tá aqui.'}
+  ];
+  function acao(a){
+    if(a==='wa'){opcoes(['Começar atendimento'],function(){bolha('Começar atendimento','me');quick.innerHTML='';menu(true);});
+      var l=document.createElement('a');l.className='chip';l.textContent='Falar no WhatsApp';l.target='_blank';l.rel='noopener';
+      l.href=base+encodeURIComponent('Olá!'+(nome?' Meu nome é '+nome+'.':'')+' Vim pelo site da PV Vendas e tenho uma dúvida.');quick.appendChild(l);
+      bot('Quer que eu anote o que você precisa pra adiantar?');}
+    else if(a==='insta'){quick.innerHTML='';var l=document.createElement('a');l.className='chip';l.textContent='Abrir Instagram';l.target='_blank';l.rel='noopener';l.href='https://www.instagram.com/_pv_vendas_/';quick.appendChild(l);
+      bot('Posso te ajudar com mais alguma coisa?');}
+    else if(a==='menu'){menu(true);}
+    else if(FLOWS[a]){
+      bot('Posso anotar os detalhes e mandar pro Pedro?',function(){
+        opcoes(['Sim, vamos','Agora não'],function(o){bolha(o,'me');quick.innerHTML='';
+          if(o==='Sim, vamos')escolher(a);else bot('Tranquilo! Se tiver outra dúvida, é só escrever.');});
+      });
+    }
+  }
+  function duvida(t){
+    var n=norm(t), hit=null;
+    for(var i=0;i<BASE.length;i++){if(tem(n,BASE[i].w)){hit=BASE[i];break;}}
+    quick.innerHTML='';
+    if(!hit){
+      bot('Desculpa, só consigo ajudar com assuntos da PV Vendas: carros, motos e produtos do Paraguai.',function(){acao('menu');});
+      return;
+    }
+    var r=typeof hit.r==='function'?hit.r():hit.r;
+    bot(r,function(){if(hit.a)acao(hit.a);});
+  }
+
   function primeiro(){return (nome||'').split(' ')[0];}
   function bolha(t,quem){var d=document.createElement('div');d.className='msg '+quem;d.textContent=t;log.appendChild(d);log.scrollTop=log.scrollHeight;return d;}
   function bot(t,depois){
@@ -507,7 +557,8 @@ body.chatting{overflow:hidden}
     });
   }
   function responder(t){
-    t=String(t).trim(); if(!t||!estado) return;
+    t=String(t).trim(); if(!t) return;
+    if(!estado){bolha(t,'me');sayIn.value='';duvida(t);return;}
     bolha(t,'me'); quick.innerHTML=''; sayIn.value='';
     estado.r.push([estado.passos[estado.i].k,t]); estado.i++;
     if(estado.i<estado.passos.length) perguntar(); else fechar();
@@ -516,9 +567,10 @@ body.chatting{overflow:hidden}
     estado={f:f,titulo:FLOWS[f].titulo,passos:FLOWS[f].passos.concat(COMUM),i:0,r:[]};
     perguntar();
   }
-  function menu(){
-    say.hidden=true;
-    bot('Me diz: o que você procura hoje?',function(){
+  function menu(curto){
+    estado=null;
+    say.hidden=false; sayIn.placeholder='Ou escreva sua dúvida';
+    bot(curto?'O que você procura?':'Me diz: o que você procura hoje? Pode tocar numa opção ou escrever sua dúvida.',function(){
       opcoes(['Comprar','Vender','Trocar','Buscar um veículo','Produtos do Paraguai'],function(o){
         bolha(o,'me');quick.innerHTML='';
         escolher({'Comprar':'comprar','Vender':'vender','Trocar':'trocar','Buscar um veículo':'buscar','Produtos do Paraguai':'paraguai'}[o]);
@@ -539,9 +591,10 @@ body.chatting{overflow:hidden}
         a.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.3L3 21z"/></svg> Enviar resumo no WhatsApp';
         quick.appendChild(a);
         var r=document.createElement('button');r.type='button';r.className='chip';r.textContent='Começar de novo';
-        r.addEventListener('click',function(){log.innerHTML='';quick.innerHTML='';estado=null;menu();});
+        r.addEventListener('click',function(){log.innerHTML='';quick.innerHTML='';menu();});
         quick.appendChild(r);
         log.scrollTop=log.scrollHeight;
+        estado=null; say.hidden=false; sayIn.placeholder='Mais alguma dúvida? Escreva aqui';
         a.focus({preventScroll:true});
       });
     });
@@ -550,7 +603,7 @@ body.chatting{overflow:hidden}
     lastFocus=document.activeElement;
     chat.hidden=false; document.body.classList.add('chatting');
     log.innerHTML=''; quick.innerHTML=''; estado=null; say.hidden=true;
-    bot('Oi'+(nome?', '+primeiro():'')+'! Eu sou a Vic, consultora da PV Vendas. Vou te fazer umas perguntas rápidas pra passar tudo certinho pro Pedro.',function(){
+    bot('Oi'+(nome?', '+primeiro():'')+'! Eu sou a Vic, assistente virtual da PV Vendas. Tiro suas dúvidas e passo tudo certinho pro Pedro.',function(){
       if(f){escolher(f);} else menu();
     });
     document.getElementById('chat-x').focus({preventScroll:true});
