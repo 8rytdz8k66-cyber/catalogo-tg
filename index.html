@@ -483,7 +483,7 @@ body.chatting{overflow:hidden}
       {k:'Quantidade',q:'Quantas unidades?'},
       {k:'Prazo',q:'Pra quando você precisa?',o:['O quanto antes','Até 15 dias','Sem pressa']}]}
   };
-  var COMUM=[{k:'Localização',q:'Onde você está? Toque no botão pra mandar sua localização ou digite o bairro.',gps:true},{k:'Melhor horário',q:'Qual o melhor horário pro Paulo falar com você?',o:HORA}];
+  var COMUM=[{k:'Localização',q:'Pra ficar mais fácil, quer me mandar sua localização? Assim o Paulo já sabe certinho onde você está.',gps:true},{k:'Melhor horário',q:'Qual o melhor horário pro Paulo falar com você?',o:HORA}];
   var estado=null;
 
   /* Base de conhecimento: só o que está no site. Nada de preço, prazo ou promoção inventados. */
@@ -550,26 +550,32 @@ body.chatting{overflow:hidden}
   }
   function botaoGps(){
     quick.innerHTML='';
-    var b=document.createElement('button');b.type='button';b.className='btn';b.textContent='📍 Enviar minha localização';
+    var b=document.createElement('button');b.type='button';b.className='btn';b.textContent='📍 Sim, mandar minha localização';
     b.addEventListener('click',function(){
       if(!navigator.geolocation){bot('Seu celular não liberou a localização. Digite seu bairro, por favor.');sayIn.focus();return;}
       b.disabled=true;b.textContent='Pegando sua localização...';
       navigator.geolocation.getCurrentPosition(function(pos){
         responder('https://maps.google.com/?q='+pos.coords.latitude.toFixed(6)+','+pos.coords.longitude.toFixed(6));
       },function(){
-        b.disabled=false;b.textContent='📍 Enviar minha localização';
+        b.disabled=false;b.textContent='📍 Sim, mandar minha localização';
         bot('Não consegui pegar sua localização. Confere se o celular liberou o GPS pro site, ou digite seu bairro.');
         sayIn.focus({preventScroll:true});
       },{enableHighAccuracy:true,timeout:15000,maximumAge:60000});
     });
     quick.appendChild(b);
+    var d=document.createElement('button');d.type='button';d.className='chip';d.textContent='Prefiro digitar o bairro';
+    d.addEventListener('click',function(){
+      bolha('Prefiro digitar o bairro','me');quick.innerHTML='';
+      bot('Beleza! Em qual bairro ou cidade você está?',function(){say.hidden=false;sayIn.placeholder='Digite seu bairro ou cidade';sayIn.focus({preventScroll:true});});
+    });
+    quick.appendChild(d);
     log.scrollTop=log.scrollHeight;
   }
   function perguntar(){
     var p=estado.passos[estado.i];
     quick.innerHTML=''; say.hidden=true;
     bot(p.q,function(){
-      if(p.gps){botaoGps();say.hidden=false;sayIn.placeholder='Ou digite seu bairro';}
+      if(p.gps){botaoGps();say.hidden=true;}
       else if(p.o){opcoes(p.o,responder);say.hidden=false;sayIn.placeholder='Ou digite outra resposta';}
       else{say.hidden=false;sayIn.placeholder='Digite sua resposta';sayIn.focus({preventScroll:true});}
     });
