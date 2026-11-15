@@ -278,7 +278,7 @@ body.chatting{overflow:hidden}
       <span class="phone">Prefere direto? <a class="wa" data-msg="Olá! Vim pelo site da PV Vendas." href="https://wa.me/5585986812394">Chame no WhatsApp (85) 98681-2394</a></span>
     </div>
     <div class="ring">
-      <img src="foto.jpg" alt="Pedro, consultor da PV Vendas, segurando dinheiro e uma prancheta" width="512" height="512" fetchpriority="high">
+      <img src="foto.jpg" alt="Consultor da PV Vendas segurando dinheiro e uma prancheta" width="512" height="512" fetchpriority="high">
       <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="48" pathLength="1"/></svg>
     </div>
   </div>
@@ -483,7 +483,7 @@ body.chatting{overflow:hidden}
       {k:'Quantidade',q:'Quantas unidades?'},
       {k:'Prazo',q:'Pra quando você precisa?',o:['O quanto antes','Até 15 dias','Sem pressa']}]}
   };
-  var COMUM=[{k:'Bairro/cidade',q:'Em qual bairro ou cidade você está?'},{k:'Melhor horário',q:'Qual o melhor horário pro Pedro falar com você?',o:HORA}];
+  var COMUM=[{k:'Bairro/cidade',q:'Em qual bairro ou cidade você está?'},{k:'Melhor horário',q:'Qual o melhor horário pro Paulo falar com você?',o:HORA}];
   var estado=null;
 
   /* Base de conhecimento: só o que está no site. Nada de preço, prazo ou promoção inventados. */
@@ -492,17 +492,17 @@ body.chatting{overflow:hidden}
   function tem(t,lista){return lista.some(function(w){return (' '+t+' ').indexOf(' '+w)>-1;});}
   var BASE=[
     {w:['preco','valor','quanto','custa','tabela','barato','desconto','promoca','oferta'],r:'Os valores mudam conforme o veículo ou o produto. '+WA_TXT,a:'wa'},
-    {w:['pagamento','pagar','pix','cartao','credito','debito','parcel','financ','boleto','entrada','dinheiro','especie'],r:'Aceito todo tipo de pagamento: Pix, dinheiro, cartão, financiamento e troca. As condições de cada negócio o Pedro acerta com você no WhatsApp.',a:'wa'},
+    {w:['pagamento','pagar','pix','cartao','credito','debito','parcel','financ','boleto','entrada','dinheiro','especie'],r:'Aceito todo tipo de pagamento: Pix, dinheiro, cartão, financiamento e troca. As condições de cada negócio o Paulo acerta com você no WhatsApp.',a:'wa'},
     {w:['horario','que horas','aberto','funciona','atende hoje','domingo','sabado','feriado','agora'],r:'Atendo em qualquer horário, todos os dias. É só chamar no WhatsApp (85) 98681-2394.',a:'wa'},
     {w:['garantia','vistoria','document','transferencia','laudo','multa','ipva','seguro'],r:WA_TXT,a:'wa'},
-    {w:['entrega','frete','envia','enviar','mandar pra'],r:'Em Fortaleza e região a gente combina entrega ou encontro. Os detalhes o Pedro acerta com você no WhatsApp.',a:'wa'},
-    {w:['paraguai','importad','iphone','celular','perfume','eletronic','encomend','muamba'],r:'Eu trago do Paraguai o que você pedir. Você me diz os produtos e o Pedro te passa valor e prazo antes de fechar.',a:'paraguai'},
-    {w:['vender','vendo','venda do meu','anunciar'],r:'Dá pra vender com a gente sim. O Pedro divulga e cuida da negociação com os interessados.',a:'vender'},
+    {w:['entrega','frete','envia','enviar','mandar pra'],r:'Em Fortaleza e região a gente combina entrega ou encontro. Os detalhes o Paulo acerta com você no WhatsApp.',a:'wa'},
+    {w:['paraguai','importad','iphone','celular','perfume','eletronic','encomend','muamba'],r:'Eu trago do Paraguai o que você pedir. Você me diz os produtos e o Paulo te passa valor e prazo antes de fechar.',a:'paraguai'},
+    {w:['vender','vendo','venda do meu','anunciar'],r:'Dá pra vender com a gente sim. O Paulo divulga e cuida da negociação com os interessados.',a:'vender'},
     {w:['troca','trocar','troco'],r:'Aceito conversar troca. Me passa os dados do seu veículo e o que você procura.',a:'trocar'},
-    {w:['busca','buscar','procura','encontrar','achar'],r:'Você me diz modelo, ano e quanto quer pagar, e o Pedro procura as opções e te manda no WhatsApp.',a:'buscar'},
-    {w:['comprar','compro','quero um','quero uma','carro','moto','veiculo','hatch','suv','sedan','onix','hb20','gol','civic','corolla','cg','fan','titan','biz','pop'],r:'Bora achar seu veículo! O Pedro trabalha com compra, venda e troca de carros e motos.',a:'comprar'},
+    {w:['busca','buscar','procura','encontrar','achar'],r:'Você me diz modelo, ano e quanto quer pagar, e o Paulo procura as opções e te manda no WhatsApp.',a:'buscar'},
+    {w:['comprar','compro','quero um','quero uma','carro','moto','veiculo','hatch','suv','sedan','onix','hb20','gol','civic','corolla','cg','fan','titan','biz','pop'],r:'Bora achar seu veículo! O Paulo trabalha com compra, venda e troca de carros e motos.',a:'comprar'},
     {w:['onde','regiao','cidade','bairro','fortaleza','atende','local','endereco','loja'],r:'Atendo Fortaleza e região. O atendimento é todo pelo WhatsApp, e a gente combina entrega ou encontro.',a:'menu'},
-    {w:['whatsapp','zap','telefone','numero','contato','falar com','pedro','humano','atendente'],r:'Você fala direto com o Pedro no WhatsApp (85) 98681-2394.',a:'wa'},
+    {w:['whatsapp','zap','telefone','numero','contato','falar com','paulo','pedro','humano','atendente'],r:'Você fala direto com o Paulo no WhatsApp (85) 98681-2394.',a:'wa'},
     {w:['instagram','insta'],r:'Lá no Instagram @_pv_vendas_ tem os negócios fechados e as novidades.',a:'insta'},
     {w:['oi','ola','bom dia','boa tarde','boa noite','eae','opa','salve'],r:function(){return 'Oi'+(nome?', '+primeiro():'')+'! Tô aqui pra te ajudar com carros, motos e produtos do Paraguai.';},a:'menu'},
     {w:['obrigad','valeu','vlw','brigad'],r:'Por nada! Se precisar, é só chamar. 👊',a:'menu'},
@@ -517,7 +517,7 @@ body.chatting{overflow:hidden}
       bot('Posso te ajudar com mais alguma coisa?');}
     else if(a==='menu'){menu(true);}
     else if(FLOWS[a]){
-      bot('Posso anotar os detalhes e mandar pro Pedro?',function(){
+      bot('Posso anotar os detalhes e mandar pro Paulo?',function(){
         opcoes(['Sim, vamos','Agora não'],function(o){bolha(o,'me');quick.innerHTML='';
           if(o==='Sim, vamos')escolher(a);else bot('Tranquilo! Se tiver outra dúvida, é só escrever.');});
       });
@@ -585,7 +585,7 @@ body.chatting{overflow:hidden}
     var url=base+encodeURIComponent(linhas.join('\n'));
     var hr=estado.r[estado.r.length-1][1].toLowerCase();
     bot('Perfeito, '+primeiro()+'! Anotei tudo. 👊',function(){
-      bot((estado.f==='vender'?'Toque no botão pra mandar o resumo pro Pedro e já envie as fotos por lá.':'Toque no botão pra mandar o resumo pro Pedro. Ele te responde'+(hr==='qualquer horário'?' assim que puder.':' de '+hr+'.')),function(){
+      bot((estado.f==='vender'?'Toque no botão pra mandar o resumo pro Paulo e já envie as fotos por lá.':'Toque no botão pra mandar o resumo pro Paulo. Ele te responde'+(hr==='qualquer horário'?' assim que puder.':' de '+hr+'.')),function(){
         quick.innerHTML='';
         var a=document.createElement('a');a.className='btn';a.href=url;a.target='_blank';a.rel='noopener';
         a.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.3L3 21z"/></svg> Enviar resumo no WhatsApp';
@@ -603,7 +603,7 @@ body.chatting{overflow:hidden}
     lastFocus=document.activeElement;
     chat.hidden=false; document.body.classList.add('chatting');
     log.innerHTML=''; quick.innerHTML=''; estado=null; say.hidden=true;
-    bot('Oi'+(nome?', '+primeiro():'')+'! Eu sou a Vic, assistente virtual da PV Vendas. Tiro suas dúvidas e passo tudo certinho pro Pedro.',function(){
+    bot('Oi'+(nome?', '+primeiro():'')+'! Eu sou a Vic, assistente virtual da PV Vendas. Tiro suas dúvidas e passo tudo certinho pro Paulo.',function(){
       if(f){escolher(f);} else menu();
     });
     document.getElementById('chat-x').focus({preventScroll:true});
