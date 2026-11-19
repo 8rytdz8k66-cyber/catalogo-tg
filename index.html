@@ -650,7 +650,7 @@ footer{border-top:1px solid var(--glass-line);background:rgba(0,0,0,.35)}
           if(!estado) return;
           bolha('📍 Localização enviada','me'); quick.innerHTML='';
           estado.r.push(['Localização',link]); estado.fr=fr; estado.i++;
-          bot('Você está a '+kmTxt(fr.km)+' de nós.\nTaxa de deslocamento: '+brl(fr.valor)+(fr.via==='estimada'?' (estimado)':'')+'.',function(){
+          bot('Taxa de deslocamento até você: '+brl(fr.valor)+(fr.via==='estimada'?' (estimado)':'')+'.',function(){
             if(estado.i<estado.passos.length) perguntar(); else fechar();
           });
         });
@@ -720,8 +720,7 @@ footer{border-top:1px solid var(--glass-line);background:rgba(0,0,0,.35)}
     var salvo=estado;
     var linhas=['Olá! Vim pelo site da PV Vendas.','','📋 '+estado.titulo.toUpperCase(),'Nome: '+(nome||'-')];
     estado.r.forEach(function(x){linhas.push(x[0]+': '+x[1]);});
-    if(estado.fr){linhas.push('Distância (Praça do Santa Maria até o cliente): '+kmTxt(estado.fr.km)+(estado.fr.via==='estimada'?' (estimada)':''));
-      linhas.push('Taxa de deslocamento: '+brl(estado.fr.valor));}
+    if(estado.fr) linhas.push('Taxa de deslocamento: '+brl(estado.fr.valor));
     if(estado.f==='vender') linhas.push('','Vou mandar as fotos aqui.');
     var url=base+encodeURIComponent(linhas.join('\n'));
     var hr=estado.r[estado.r.length-1][1].toLowerCase();
