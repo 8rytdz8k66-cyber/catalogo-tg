@@ -236,6 +236,58 @@ body.chatting{overflow:hidden}
   .ring circle{animation:none;stroke-dashoffset:0}
   .btn,.float,summary .pm::after{transition:none}
 }
+
+/* ===== Vitrine verde e preta com vidro fosco ===== */
+:root{--glass:rgba(255,255,255,.15);--glass-line:rgba(255,255,255,.3);--glass-shadow:0 10px 32px rgba(0,0,0,.35);--blur:blur(12px)}
+body{background:#000;position:relative;isolation:isolate}
+body::before{content:"";position:fixed;inset:-10%;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(38% 30% at 12% 8%, rgba(134,255,60,.55), transparent 70%),
+    radial-gradient(34% 28% at 92% 22%, rgba(0,200,120,.45), transparent 70%),
+    radial-gradient(40% 32% at 70% 72%, rgba(134,255,60,.38), transparent 70%),
+    radial-gradient(36% 30% at 8% 92%, rgba(40,160,30,.45), transparent 70%),
+    #000;
+  filter:saturate(1.15)}
+.glass,.tile,.nav,details,.sheet,.gate-in{background:var(--glass);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);
+  border:1px solid var(--glass-line);box-shadow:var(--glass-shadow)}
+/* Navegação de vidro fixa */
+.nav{position:sticky;top:0;z-index:30;border-width:0 0 1px;border-radius:0}
+.nav .top{padding-block:10px}
+.nav nav{display:flex;gap:4px}
+.nav nav a{text-decoration:none;font-weight:700;font-size:15px;padding:10px 12px;border-radius:999px;color:var(--white)}
+.nav nav a:hover{background:rgba(255,255,255,.12)}
+.top .mini{background:var(--neon);color:var(--black);border-radius:999px;padding:9px 16px}
+section{border-top:0;scroll-margin-top:64px}
+.hero p,.intro,.insta p,details p,.foot,.legal{color:#d6ddd2}
+/* Vitrine */
+.vitrine{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.tile{border-radius:24px;padding:26px 22px 22px;display:flex;flex-direction:column;gap:10px;transition:transform .2s, border-color .2s}
+.tile:hover{transform:translateY(-3px);border-color:rgba(134,255,60,.7)}
+.tile.feature{border-color:rgba(134,255,60,.75);background:rgba(134,255,60,.14)}
+.tile .ico{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:rgba(0,0,0,.45);color:var(--neon);border:1px solid rgba(134,255,60,.45)}
+.tile .ico svg{width:28px;height:28px}
+.tile h3{margin:6px 0 0;font-size:24px;line-height:1.05;font-weight:850;font-variation-settings:"wdth" 80}
+.tile p{margin:0 0 8px;color:#e3e9df;font-size:16px}
+.tile .btn{margin-top:auto}
+.btn.sm{min-height:48px;font-size:16px;padding:0 20px;width:100%}
+/* Instagram e FAQ em vidro */
+.insta.glass{border-radius:28px;padding:clamp(22px,4vw,40px)}
+details{border-radius:18px;padding:0 20px;margin-bottom:10px}
+details p{margin-bottom:18px}
+summary{padding:18px 0}
+/* Chat e entrada em vidro */
+.sheet{background:rgba(20,26,18,.55)}
+#chat{background:rgba(0,0,0,.45)}
+#gate{background:rgba(0,0,0,.55);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px)}
+.gate-in{border-radius:28px;padding:28px 22px}
+.msg.bot{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.22)}
+footer{border-top:1px solid var(--glass-line);background:rgba(0,0,0,.35)}
+@media (max-width:860px){.vitrine{grid-template-columns:1fr 1fr}.nav nav{display:none}}
+@media (max-width:560px){.vitrine{grid-template-columns:1fr}}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .glass,.tile,.nav,details,.sheet,.gate-in{background:rgba(20,26,18,.92)}
+}
+@media (prefers-reduced-motion:reduce){.tile{transition:none}.tile:hover{transform:none}}
 </style>
 </head>
 <body class="gated">
@@ -258,12 +310,19 @@ body.chatting{overflow:hidden}
   </div>
 </div>
 
-<header class="wrap top">
-  <a class="id" href="#" aria-label="PV Vendas, início">
-    <img src="foto.jpg" alt="" width="40" height="40">
-    PV Vendas
-  </a>
-  <a class="mini wa" data-msg="Olá! Vim pelo site da PV Vendas." href="https://wa.me/5585986812394">WhatsApp</a>
+<header class="nav">
+  <div class="wrap top">
+    <a class="id" href="#" aria-label="PV Vendas, início">
+      <img src="foto.jpg" alt="" width="40" height="40">
+      PV Vendas
+    </a>
+    <nav aria-label="Seções">
+      <a href="#servicos">Vitrine</a>
+      <a href="#instagram">Negócios</a>
+      <a href="#duvidas">Dúvidas</a>
+    </nav>
+    <a class="mini wa" data-msg="Olá! Vim pelo site da PV Vendas." href="https://wa.me/5585986812394">WhatsApp</a>
+  </div>
 </header>
 
 <main id="conteudo">
@@ -285,38 +344,51 @@ body.chatting{overflow:hidden}
 
   <section id="servicos" aria-labelledby="t-servicos">
     <div class="wrap">
-      <h2 id="t-servicos">O que eu faço por você</h2>
+      <h2 id="t-servicos">Vitrine PV Vendas</h2>
       <p class="intro" id="intro-serv"><span class="hi" id="hello"></span>Escolha o que precisa. A Vic, minha consultora, faz umas perguntas rápidas e me passa tudo no WhatsApp.</p>
-      <div class="cards">
-        <article class="card">
-          <h3>Carros e motos</h3>
-          <p>Quer comprar, vender ou trocar? Eu cuido da negociação pra você não perder tempo nem dinheiro.</p>
-          <div class="acts">
-            <button class="chip" type="button" data-flow="comprar">Quero comprar</button>
-            <button class="chip" type="button" data-flow="vender">Quero vender</button>
-            <button class="chip" type="button" data-flow="trocar">Quero trocar</button>
-          </div>
+      <div class="vitrine">
+        <article class="tile">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 16h14M3 16v-3l2-5h14l2 5v3M5 16v2M19 16v2"/><circle cx="7.5" cy="13" r="1"/><circle cx="16.5" cy="13" r="1"/></svg></span>
+          <h3>Comprar carro ou moto</h3>
+          <p>Te ajudo a achar o veículo certo pelo melhor preço.</p>
+          <button class="btn sm" type="button" data-flow="comprar">Quero comprar</button>
         </article>
-        <article class="card feature">
-          <h3>Busco o carro pra você</h3>
-          <p>Me diz modelo, ano e quanto quer pagar. Eu procuro as opções e te mando no WhatsApp.</p>
-          <div class="acts">
-            <button class="chip" type="button" data-flow="buscar">Pedir uma busca</button>
-          </div>
+        <article class="tile">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 19h16"/></svg></span>
+          <h3>Vender seu veículo</h3>
+          <p>Eu divulgo e cuido da negociação pra você.</p>
+          <button class="btn sm" type="button" data-flow="vender">Quero vender</button>
         </article>
-        <article class="card">
+        <article class="tile">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h11l-3-3M17 17H6l3 3"/></svg></span>
+          <h3>Trocar</h3>
+          <p>Seu carro ou moto como parte do pagamento.</p>
+          <button class="btn sm" type="button" data-flow="trocar">Quero trocar</button>
+        </article>
+        <article class="tile feature">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg></span>
+          <h3>Busco pra você</h3>
+          <p>Me diz modelo, ano e valor. Eu encontro.</p>
+          <button class="btn sm" type="button" data-flow="buscar">Pedir uma busca</button>
+        </article>
+        <article class="tile">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8l8-4 8 4v8l-8 4-8-4z"/><path d="M4 8l8 4 8-4M12 12v8"/></svg></span>
           <h3>Produtos do Paraguai</h3>
-          <p>Quer algo do Paraguai? Eu trago. Me diz os produtos e eu passo o orçamento.</p>
-          <div class="acts">
-            <button class="chip" type="button" data-flow="paraguai">Pedir orçamento</button>
-          </div>
+          <p>Celular, perfume, eletrônicos e o que você pedir.</p>
+          <button class="btn sm" type="button" data-flow="paraguai">Pedir orçamento</button>
+        </article>
+        <article class="tile">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg></span>
+          <h3>Tirar uma dúvida</h3>
+          <p>A Vic responde na hora e passa pro Paulo.</p>
+          <button class="btn sm" type="button" data-flow="">Falar com a Vic</button>
         </article>
       </div>
     </div>
   </section>
 
   <section id="instagram" aria-labelledby="t-insta">
-    <div class="wrap insta">
+    <div class="wrap"><div class="insta glass">
       <img src="logo.jpg" alt="Foto de perfil do Instagram @_pv_vendas_" width="160" height="160" loading="lazy">
       <div>
         <h2 id="t-insta">Negócios fechados</h2>
@@ -324,7 +396,7 @@ body.chatting{overflow:hidden}
         <p>Veja no Instagram os carros, motos e encomendas que já passaram por aqui, e as novidades da semana.</p>
         <a class="btn ghost" href="https://www.instagram.com/_pv_vendas_/" target="_blank" rel="noopener">Ver no Instagram</a>
       </div>
-    </div>
+    </div></div>
   </section>
 
   <section id="duvidas" aria-labelledby="t-faq">
