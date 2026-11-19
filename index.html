@@ -620,8 +620,8 @@ footer{border-top:1px solid var(--glass-line);background:rgba(0,0,0,.35)}
       b.addEventListener('click',function(){cb(o);});quick.appendChild(b);});
     log.scrollTop=log.scrollHeight;
   }
-  /* Frete: R$ 2,50 por km, saindo da Praça do Santa Maria (Parque Santa Maria, Fortaleza). Ponto aproximado: trocar pelo pino exato quando tiver. */
-  var ORIGEM={lat:-3.8589613,lon:-38.4998324}, POR_KM=2.5;
+  /* Frete: R$ 2,50 por km, saindo da Praça do Santa Maria, Rua Capitão Porfírio (Parque Santa Maria, Fortaleza) */
+  var ORIGEM={lat:-3.8529791,lon:-38.5006206}, POR_KM=2.5;
   function brl(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});}
   function kmTxt(k){return k.toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})+' km';}
   function linhaReta(a,b,c,d){var R=6371,r=Math.PI/180,x=(c-a)*r,y=(d-b)*r,
