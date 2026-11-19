@@ -567,7 +567,7 @@ footer{border-top:1px solid var(--glass-line);background:rgba(0,0,0,.35)}
     {w:['pagamento','pagar','pix','cartao','credito','debito','parcel','financ','boleto','entrada','dinheiro','especie'],r:'Aceito todo tipo de pagamento: Pix, dinheiro, cartão, financiamento e troca. As condições de cada negócio o Paulo acerta com você no WhatsApp.',a:'wa'},
     {w:['horario','que horas','aberto','funciona','atende hoje','domingo','sabado','feriado','agora'],r:'Atendo em qualquer horário, todos os dias. É só chamar no WhatsApp (85) 98681-2394.',a:'wa'},
     {w:['garantia','vistoria','document','transferencia','laudo','multa','ipva','seguro'],r:WA_TXT,a:'wa'},
-    {w:['entrega','frete','envia','enviar','mandar pra','taxa','deslocamento','km'],r:'A taxa de deslocamento é R$ 2,50 por km, saindo da Rua Jorge da Veiga, no Parque Santa Maria. Se você mandar sua localização no atendimento, eu já calculo pra você.',a:'wa'},
+    {w:['entrega','frete','envia','enviar','mandar pra','taxa','deslocamento','km'],r:'A taxa de deslocamento é R$ 2,50 por km, saindo da Praça do Santa Maria, no Parque Santa Maria. Se você mandar sua localização no atendimento, eu já calculo pra você.',a:'wa'},
     {w:['paraguai','importad','iphone','celular','perfume','eletronic','encomend','muamba'],r:'Eu trago do Paraguai o que você pedir. Você me diz os produtos e o Paulo te passa valor e prazo antes de fechar.',a:'paraguai'},
     {w:['vender','vendo','venda do meu','anunciar'],r:'Dá pra vender com a gente sim. O Paulo divulga e cuida da negociação com os interessados.',a:'vender'},
     {w:['troca','trocar','troco'],r:'Aceito conversar troca. Me passa os dados do seu veículo e o que você procura.',a:'trocar'},
@@ -620,7 +620,7 @@ footer{border-top:1px solid var(--glass-line);background:rgba(0,0,0,.35)}
       b.addEventListener('click',function(){cb(o);});quick.appendChild(b);});
     log.scrollTop=log.scrollHeight;
   }
-  /* Frete: R$ 2,50 por km, saindo da Rua Jorge da Veiga (Parque Santa Maria, Fortaleza) */
+  /* Frete: R$ 2,50 por km, saindo da Praça do Santa Maria (Parque Santa Maria, Fortaleza). Ponto aproximado: trocar pelo pino exato quando tiver. */
   var ORIGEM={lat:-3.8589613,lon:-38.4998324}, POR_KM=2.5;
   function brl(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});}
   function kmTxt(k){return k.toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})+' km';}
@@ -720,7 +720,7 @@ footer{border-top:1px solid var(--glass-line);background:rgba(0,0,0,.35)}
     var salvo=estado;
     var linhas=['Olá! Vim pelo site da PV Vendas.','','📋 '+estado.titulo.toUpperCase(),'Nome: '+(nome||'-')];
     estado.r.forEach(function(x){linhas.push(x[0]+': '+x[1]);});
-    if(estado.fr){linhas.push('Distância (Rua Jorge da Veiga até o cliente): '+kmTxt(estado.fr.km)+(estado.fr.via==='estimada'?' (estimada)':''));
+    if(estado.fr){linhas.push('Distância (Praça do Santa Maria até o cliente): '+kmTxt(estado.fr.km)+(estado.fr.via==='estimada'?' (estimada)':''));
       linhas.push('Taxa de deslocamento (R$ 2,50/km): '+brl(estado.fr.valor));}
     if(estado.f==='vender') linhas.push('','Vou mandar as fotos aqui.');
     var url=base+encodeURIComponent(linhas.join('\n'));
