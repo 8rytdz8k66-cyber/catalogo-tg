@@ -567,7 +567,7 @@ footer{border-top:1px solid var(--glass-line);background:rgba(0,0,0,.35)}
     {w:['pagamento','pagar','pix','cartao','credito','debito','parcel','financ','boleto','entrada','dinheiro','especie'],r:'Aceito todo tipo de pagamento: Pix, dinheiro, cartão, financiamento e troca. As condições de cada negócio o Paulo acerta com você no WhatsApp.',a:'wa'},
     {w:['horario','que horas','aberto','funciona','atende hoje','domingo','sabado','feriado','agora'],r:'Atendo em qualquer horário, todos os dias. É só chamar no WhatsApp (85) 98681-2394.',a:'wa'},
     {w:['garantia','vistoria','document','transferencia','laudo','multa','ipva','seguro'],r:WA_TXT,a:'wa'},
-    {w:['entrega','frete','envia','enviar','mandar pra'],r:'Em Fortaleza e região a gente combina entrega ou encontro. Os detalhes o Paulo acerta com você no WhatsApp.',a:'wa'},
+    {w:['entrega','frete','envia','enviar','mandar pra','taxa','deslocamento','km'],r:'A taxa de deslocamento é R$ 2,50 por km, saindo da Rua Jorge da Veiga, no Parque Santa Maria. Se você mandar sua localização no atendimento, eu já calculo pra você.',a:'wa'},
     {w:['paraguai','importad','iphone','celular','perfume','eletronic','encomend','muamba'],r:'Eu trago do Paraguai o que você pedir. Você me diz os produtos e o Paulo te passa valor e prazo antes de fechar.',a:'paraguai'},
     {w:['vender','vendo','venda do meu','anunciar'],r:'Dá pra vender com a gente sim. O Paulo divulga e cuida da negociação com os interessados.',a:'vender'},
     {w:['troca','trocar','troco'],r:'Aceito conversar troca. Me passa os dados do seu veículo e o que você procura.',a:'trocar'},
@@ -620,6 +620,22 @@ footer{border-top:1px solid var(--glass-line);background:rgba(0,0,0,.35)}
       b.addEventListener('click',function(){cb(o);});quick.appendChild(b);});
     log.scrollTop=log.scrollHeight;
   }
+  /* Frete: R$ 2,50 por km, saindo da Rua Jorge da Veiga (Parque Santa Maria, Fortaleza) */
+  var ORIGEM={lat:-3.8589613,lon:-38.4998324}, POR_KM=2.5;
+  function brl(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});}
+  function kmTxt(k){return k.toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})+' km';}
+  function linhaReta(a,b,c,d){var R=6371,r=Math.PI/180,x=(c-a)*r,y=(d-b)*r,
+    h=Math.sin(x/2)*Math.sin(x/2)+Math.cos(a*r)*Math.cos(c*r)*Math.sin(y/2)*Math.sin(y/2);return 2*R*Math.asin(Math.sqrt(h));}
+  function calcFrete(lat,lon){
+    function fim(km,via){km=Math.round(km*10)/10;return {km:km,valor:Math.round(km*POR_KM*100)/100,via:via};}
+    var est=fim(linhaReta(ORIGEM.lat,ORIGEM.lon,lat,lon)*1.3,'estimada');
+    if(!window.fetch) return Promise.resolve(est);
+    var ctl=window.AbortController?new AbortController():null, t=setTimeout(function(){if(ctl)ctl.abort();},7000);
+    return fetch('https://router.project-osrm.org/route/v1/driving/'+ORIGEM.lon+','+ORIGEM.lat+';'+lon+','+lat+'?overview=false',ctl?{signal:ctl.signal}:{})
+      .then(function(r){return r.json();})
+      .then(function(j){clearTimeout(t);if(j&&j.routes&&j.routes[0])return fim(j.routes[0].distance/1000,'rota');return est;})
+      .catch(function(){clearTimeout(t);return est;});
+  }
   function botaoGps(){
     quick.innerHTML='';
     var b=document.createElement('button');b.type='button';b.className='btn';b.textContent='📍 Sim, mandar minha localização';
@@ -627,7 +643,17 @@ footer{border-top:1px solid var(--glass-line);background:rgba(0,0,0,.35)}
       if(!navigator.geolocation){bot('Seu celular não liberou a localização. Digite seu bairro, por favor.');sayIn.focus();return;}
       b.disabled=true;b.textContent='Pegando sua localização...';
       navigator.geolocation.getCurrentPosition(function(pos){
-        responder('https://maps.google.com/?q='+pos.coords.latitude.toFixed(6)+','+pos.coords.longitude.toFixed(6));
+        var lat=pos.coords.latitude, lon=pos.coords.longitude;
+        var link='https://maps.google.com/?q='+lat.toFixed(6)+','+lon.toFixed(6);
+        b.textContent='Calculando a distância...';
+        calcFrete(lat,lon).then(function(fr){
+          if(!estado) return;
+          bolha('📍 Localização enviada','me'); quick.innerHTML='';
+          estado.r.push(['Localização',link]); estado.fr=fr; estado.i++;
+          bot('Você está a '+kmTxt(fr.km)+' de nós.\nTaxa de deslocamento: '+brl(fr.valor)+' (R$ 2,50 por km'+(fr.via==='estimada'?', valor estimado':'')+').',function(){
+            if(estado.i<estado.passos.length) perguntar(); else fechar();
+          });
+        });
       },function(){
         b.disabled=false;b.textContent='📍 Sim, mandar minha localização';
         bot('Não consegui pegar sua localização. Confere se o celular liberou o GPS pro site, ou digite seu bairro.');
@@ -654,6 +680,7 @@ footer{border-top:1px solid var(--glass-line);background:rgba(0,0,0,.35)}
     var alvo=estado.i-1;
     while(log.children.length>estado.m[alvo]) log.removeChild(log.lastChild);
     estado.r.length=alvo; estado.i=alvo;
+    if(estado.fr&&!estado.r.some(function(x){return x[0]==='Localização';})) estado.fr=null;
     perguntar();
   }
   function perguntar(){
@@ -693,6 +720,8 @@ footer{border-top:1px solid var(--glass-line);background:rgba(0,0,0,.35)}
     var salvo=estado;
     var linhas=['Olá! Vim pelo site da PV Vendas.','','📋 '+estado.titulo.toUpperCase(),'Nome: '+(nome||'-')];
     estado.r.forEach(function(x){linhas.push(x[0]+': '+x[1]);});
+    if(estado.fr){linhas.push('Distância (Rua Jorge da Veiga até o cliente): '+kmTxt(estado.fr.km)+(estado.fr.via==='estimada'?' (estimada)':''));
+      linhas.push('Taxa de deslocamento (R$ 2,50/km): '+brl(estado.fr.valor));}
     if(estado.f==='vender') linhas.push('','Vou mandar as fotos aqui.');
     var url=base+encodeURIComponent(linhas.join('\n'));
     var hr=estado.r[estado.r.length-1][1].toLowerCase();
