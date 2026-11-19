@@ -300,6 +300,16 @@ body.gated .float,body.chatting .float{display:none}
 .float:hover img{transform:scale(1.05)}
 .float img{transition:transform .2s}
 @media (prefers-reduced-motion:reduce){.float img{transition:none}}
+
+/* Catálogo para empresas */
+.cat.glass{border-radius:28px;padding:clamp(24px,5vw,48px);border-color:rgba(134,255,60,.6)}
+.cat .tag{display:inline-block;margin:0 0 12px;padding:6px 12px;border-radius:999px;background:rgba(134,255,60,.18);color:var(--neon);font-weight:800;font-size:14px}
+.cat h2{max-width:15em}
+.cat-list{list-style:none;margin:0 0 28px;padding:0;display:grid;gap:12px;max-width:34em}
+.cat-list li{display:flex;gap:12px;align-items:flex-start;font-weight:650;font-size:17px}
+.cat-list svg{flex:none;width:24px;height:24px;color:var(--black);background:var(--neon);border-radius:50%;padding:4px}
+.cat-note{margin:14px 0 0;color:#d6ddd2;font-size:14px}
+@media (max-width:520px){.cat .btn{width:100%}}
 </style>
 </head>
 <body class="gated">
@@ -330,6 +340,7 @@ body.gated .float,body.chatting .float{display:none}
     </a>
     <nav aria-label="Seções">
       <a href="#servicos">Vitrine</a>
+      <a href="#catalogos">Catálogos</a>
       <a href="#instagram">Negócios</a>
       <a href="#duvidas">Dúvidas</a>
     </nav>
@@ -397,6 +408,25 @@ body.gated .float,body.chatting .float{display:none}
         </article>
       </div>
     </div>
+  </section>
+
+  <section id="catalogos" aria-labelledby="t-cat">
+    <div class="wrap"><div class="cat glass">
+      <div class="cat-txt">
+        <p class="tag">Para empresários</p>
+        <h2 id="t-cat">Um catálogo da sua empresa, do seu jeito</h2>
+        <p class="intro">Com a sua marca, as suas cores e os seus produtos. Do jeito que você sempre imaginou, pronto pra mandar pros clientes.</p>
+        <ul class="cat-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Sua logo e as cores da sua marca</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Produtos, serviços ou cardápio com preços</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Botão que leva o cliente direto pro seu WhatsApp</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Link pra colocar no Instagram e mandar no status</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Atendente virtual como a Vic, se você quiser</li>
+        </ul>
+        <button class="btn" type="button" data-flow="catalogo">Quero o catálogo da minha empresa</button>
+        <p class="cat-note">Este site é um exemplo do que dá pra fazer pra sua empresa.</p>
+      </div>
+    </div></div>
   </section>
 
   <section id="instagram" aria-labelledby="t-insta">
@@ -468,6 +498,7 @@ body.gated .float,body.chatting .float{display:none}
         <h3>Navegue</h3>
         <ul>
           <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#catalogos">Catálogo para empresas</a></li>
           <li><a href="#instagram">Negócios fechados</a></li>
           <li><a href="#duvidas">Perguntas frequentes</a></li>
           <li><a href="termos.html">Termos de uso</a></li>
@@ -571,7 +602,15 @@ body.gated .float,body.chatting .float{display:none}
         ack:function(t){return temCel(t)?'Ótima escolha, esse sai muito! 📱 Se quiser, pode incluir capinha, película ou carregador que o Paulo já orça junto.':'Ótima escolha! 👌';}},
       {k:'Quantidade',q:'Quantas unidades você quer?\n🔥 Levando 2 ou mais, o Paulo consegue um preço ainda melhor pra você!',o:['1','2','3 ou mais'],
         ack:function(t){return t==='1'?'Anotado! Se mudar de ideia e quiser levar 2, é só me avisar que sai mais em conta. 😉':'Boa! Assim você aproveita o preço melhor. 🙌';}},
-      {k:'Prazo',q:'Pra quando você precisa?',o:['O quanto antes','Até 15 dias','Sem pressa']}]}
+      {k:'Prazo',q:'Pra quando você precisa?',o:['O quanto antes','Até 15 dias','Sem pressa']}]},
+    catalogo:{titulo:'Catálogo para empresa',equipe:true,passos:[
+      {k:'Empresa',q:'Que demais! Vamos deixar sua empresa com a sua cara. 🚀 Qual o nome da empresa?'},
+      {k:'Segmento',q:'E o que a sua empresa vende ou faz?'},
+      {k:'No catálogo',q:'O que você quer mostrar no catálogo?',o:['Produtos com preço','Serviços','Cardápio','Um pouco de tudo']},
+      {k:'Marca',q:'Você já tem logo e cores da marca?',o:['Sim, já tenho','Tenho só a logo','Não, preciso criar'],
+        ack:function(t){return /^Sim/.test(t)?'Perfeito! A gente usa tudo isso pra ficar com a cara da sua empresa. 🎨':'Sem problema, a gente te ajuda com isso! 🎨';}},
+      {k:'Atendente virtual',q:'Quer uma atendente virtual como eu no seu catálogo?',o:['Quero sim','Não precisa','Quero saber mais']},
+      {k:'Prazo',q:'Pra quando você gostaria de ter o catálogo pronto?',o:['O quanto antes','Até 15 dias','Sem pressa']}]}
   };
   var COMUM=[{k:'Localização',q:'Pra ficar mais fácil, você pode me mandar sua localização? Assim o Paulo já sabe certinho onde você está.',gps:true},{k:'Melhor horário',q:'Pra finalizar: qual o melhor horário pro Paulo falar com você?',o:HORA}];
   var ACKS=['Anotado! 👍','Perfeito!','Show!','Beleza!','Ótimo, obrigada!','Entendi! 😊'];
@@ -582,6 +621,7 @@ body.gated .float,body.chatting .float{display:none}
   function norm(t){return t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9$ ]/g,' ');}
   function tem(t,lista){return lista.some(function(w){return (' '+t+' ').indexOf(' '+w)>-1;});}
   var BASE=[
+    {w:['catalogo','minha empresa','minha loja','meu negocio','cardapio','empresario'],r:'A gente faz o catálogo da sua empresa do seu jeito: sua logo, suas cores, seus produtos e botão direto pro seu WhatsApp. 🚀',a:'catalogo'},
     {w:['promoca','desconto','oferta','barato','mais em conta','levar 2','dois'],r:'Tem sim! 🔥 Nos produtos do Paraguai, levando 2 ou mais unidades, o Paulo consegue um preço ainda melhor pra você.',a:'paraguai'},
     {w:['preco','valor','quanto','custa','tabela'],r:'Os valores mudam conforme o veículo ou o produto. '+WA_TXT,a:'wa'},
     {w:['pagamento','pagar','pix','cartao','credito','debito','parcel','financ','boleto','entrada','dinheiro','especie'],r:'Aceito todo tipo de pagamento: Pix, dinheiro, cartão, financiamento e troca. As condições de cada negócio o Paulo acerta com você no WhatsApp.',a:'wa'},
@@ -725,16 +765,16 @@ body.gated .float,body.chatting .float{display:none}
     if(estado.i<estado.passos.length) perguntar(); else fechar();
   }
   function escolher(f){
-    estado={f:f,titulo:FLOWS[f].titulo,passos:FLOWS[f].passos.concat(COMUM),i:0,r:[],m:[]};
+    estado={f:f,titulo:FLOWS[f].titulo,passos:FLOWS[f].passos.concat(FLOWS[f].equipe?[COMUM[1]]:COMUM),i:0,r:[],m:[]};
     perguntar();
   }
   function menu(curto){
     estado=null;
     say.hidden=false; sayIn.placeholder='Ou escreva sua dúvida';
     bot(curto?'O que você procura?':'Me diz: o que você procura hoje? Pode tocar numa opção ou escrever sua dúvida.',function(){
-      opcoes(['Comprar','Vender','Trocar','Buscar um veículo','Produtos do Paraguai'],function(o){
+      opcoes(['Comprar','Vender','Trocar','Buscar um veículo','Produtos do Paraguai','Catálogo pra minha empresa'],function(o){
         bolha(o,'me');quick.innerHTML='';
-        escolher({'Comprar':'comprar','Vender':'vender','Trocar':'trocar','Buscar um veículo':'buscar','Produtos do Paraguai':'paraguai'}[o]);
+        escolher({'Comprar':'comprar','Vender':'vender','Trocar':'trocar','Buscar um veículo':'buscar','Produtos do Paraguai':'paraguai','Catálogo pra minha empresa':'catalogo'}[o]);
       });
     });
   }
