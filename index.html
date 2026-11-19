@@ -647,7 +647,7 @@ footer{background:rgba(20,24,20,.6)}
       {k:'Meu veículo',q:'Ótimo, troca é com a gente mesmo! 🔄 Me conta do seu veículo: modelo, ano e km.'},
       {k:'Quero no lugar',q:'E o que você gostaria de ter no lugar dele?'},
       {k:'Volta dinheiro',q:'Você pensa em voltar algum valor na troca?',o:['Sim','Não','Depende']}]},
-    paraguai:{titulo:'Produtos do Paraguai',passos:[
+    paraguai:{titulo:'Produtos do Paraguai',wa:'5585992731514',passos:[
       {k:'Produtos',q:'Que bom! Eu trago pra você. 🛍️ Quais produtos você quer? Se puder, me diz modelo, cor e capacidade.',
         ack:function(t){return temCel(t)?'Ótima escolha, esse sai muito! 📱 Se quiser, pode incluir capinha, película ou carregador que o Paulo já orça junto.':'Ótima escolha! 👌';}},
       {k:'Quantidade',q:'Quantas unidades você quer?\n🔥 Levando 2 ou mais, o Paulo consegue um preço ainda melhor pra você!',o:['1','2','3 ou mais'],
@@ -836,7 +836,8 @@ footer{background:rgba(20,24,20,.6)}
     estado.r.forEach(function(x){linhas.push(x[0]+': '+x[1]);});
     if(estado.fr) linhas.push('Taxa de deslocamento: '+brl(estado.fr.valor));
     if(estado.f==='vender') linhas.push('','Vou mandar as fotos aqui.');
-    var url=base+encodeURIComponent(linhas.join('\n'));
+    var fw=FLOWS[estado.f]&&FLOWS[estado.f].wa;
+    var url=(fw?'https://wa.me/'+fw+'?text=':base)+encodeURIComponent(linhas.join('\n'));
     var hr=estado.r[estado.r.length-1][1].toLowerCase();
     bot('Perfeito, '+primeiro()+'! Anotei tudo direitinho. Muito obrigada pela confiança! 💚',function(){
       bot((estado.f==='vender'?'Toque no botão pra mandar o resumo pro Paulo e já envie as fotos por lá.\n📸 Dica: fotos com boa luz e o veículo limpinho vendem bem mais rápido!':'Toque no botão pra mandar o resumo pro Paulo. Ele te responde'+(hr==='qualquer horário'?' assim que puder.':' de '+hr+'.')),function(){
