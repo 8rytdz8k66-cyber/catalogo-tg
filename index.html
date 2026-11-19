@@ -310,6 +310,56 @@ body.gated .float,body.chatting .float{display:none}
 .cat-list svg{flex:none;width:24px;height:24px;color:var(--black);background:var(--neon);border-radius:50%;padding:4px}
 .cat-note{margin:14px 0 0;color:#d6ddd2;font-size:14px}
 @media (max-width:520px){.cat .btn{width:100%}}
+
+/* ===== Ajuste: preto mais claro, verde mais claro, celular mais organizado ===== */
+:root{--black:#000;--neon:#a3ff6b;--neon-deep:#5fae2c;--soot:#202520;--rim:#323a31;--ash:#c3cbbf}
+body{background:#1a1e1a}
+body::before{background:
+    radial-gradient(40% 30% at 10% 6%, rgba(163,255,107,.38), transparent 70%),
+    radial-gradient(36% 28% at 95% 25%, rgba(70,220,150,.28), transparent 70%),
+    radial-gradient(42% 32% at 70% 75%, rgba(163,255,107,.26), transparent 70%),
+    radial-gradient(36% 30% at 5% 95%, rgba(90,190,60,.30), transparent 70%),
+    #1a1e1a}
+.nav{background:rgba(26,30,26,.6)}
+footer{background:rgba(20,24,20,.6)}
+
+/* Respostas rápidas da Vic: menores e em grade */
+.quick{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:4px 14px 10px}
+.quick .chip{min-height:40px;font-size:14px;padding:0 10px;justify-content:center;text-align:center;line-height:1.15;border-radius:12px;
+  border-width:1px;background:rgba(163,255,107,.08)}
+.quick .chip:hover,.quick .chip:active{background:var(--neon);color:var(--black)}
+.quick .btn{grid-column:1/-1;min-height:48px;font-size:16px}
+.quick .chip:only-child,.quick .chip.wide,.quick .chip:not(.back):nth-child(odd):nth-last-child(1),.quick .chip:not(.back):nth-child(odd):nth-last-child(2).pre-back{grid-column:1/-1}
+.quick .chip.back{grid-column:1/-1;border:0;background:transparent;color:var(--ash);min-height:34px;font-size:13px;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.quick .chip.back:hover{background:transparent;color:var(--neon)}
+.msg{font-size:15px;padding:9px 13px}
+.log{gap:6px;padding:14px}
+
+@media (max-width:560px){
+  body{font-size:16px}
+  section{padding-block:44px}
+  h2{font-size:30px}
+  .intro{margin-bottom:22px}
+  .hero{padding-block:16px 40px;gap:18px}
+  .hero h1{font-size:36px}
+  .hero p{margin:14px 0 20px;font-size:16px}
+  .ring{width:min(56vw,220px)}
+  /* vitrine em lista compacta */
+  .vitrine{gap:10px}
+  .tile{display:grid;grid-template-columns:44px 1fr;column-gap:14px;row-gap:4px;padding:16px;border-radius:18px;align-items:start}
+  .tile .ico{width:44px;height:44px;border-radius:12px;grid-row:1/3}
+  .tile .ico svg{width:22px;height:22px}
+  .tile h3{margin:0;font-size:19px;align-self:center}
+  .tile p{grid-column:2;margin:0;font-size:14.5px;line-height:1.4}
+  .tile .btn{grid-column:1/-1;margin-top:10px;min-height:44px;font-size:15px}
+  .cat.glass,.insta.glass{padding:22px 18px;border-radius:22px}
+  .cat-list{gap:10px;margin-bottom:22px}
+  .cat-list li{font-size:15.5px}
+  details{padding:0 16px}
+  summary{font-size:16.5px;padding:15px 0}
+  .insta .handle{font-size:34px}
+  .final h2{font-size:30px}
+}
 </style>
 </head>
 <body class="gated">
@@ -721,7 +771,7 @@ body.gated .float,body.chatting .float{display:none}
       },{enableHighAccuracy:true,timeout:15000,maximumAge:60000});
     });
     quick.appendChild(b);
-    var d=document.createElement('button');d.type='button';d.className='chip';d.textContent='Prefiro digitar o bairro';
+    var d=document.createElement('button');d.type='button';d.className='chip wide';d.textContent='Prefiro digitar o bairro';
     d.addEventListener('click',function(){
       bolha('Prefiro digitar o bairro','me');quick.innerHTML='';
       bot('Beleza! Em qual bairro ou cidade você está?',function(){say.hidden=false;sayIn.placeholder='Digite seu bairro ou cidade';if(estado&&estado.i>0)addVoltar();sayIn.focus({preventScroll:true});});
@@ -730,8 +780,9 @@ body.gated .float,body.chatting .float{display:none}
     log.scrollTop=log.scrollHeight;
   }
   function addVoltar(alvo){
-    var v=document.createElement('button');v.type='button';v.className='chip';v.textContent='↩ Voltar à pergunta anterior';
+    var v=document.createElement('button');v.type='button';v.className='chip back';v.textContent='↩ Voltar à pergunta anterior';
     v.addEventListener('click',function(){voltar(alvo);});
+    var ch=quick.querySelectorAll('.chip:not(.back)');if(ch.length%2===1)ch[ch.length-1].classList.add('wide');
     quick.appendChild(v); log.scrollTop=log.scrollHeight;
   }
   function voltar(salvo){
@@ -747,7 +798,7 @@ body.gated .float,body.chatting .float{display:none}
     var p=estado.passos[estado.i];
     quick.innerHTML=''; say.hidden=true;
     estado.m[estado.i]=log.children.length;
-    var pre=estado.ack?estado.ack+'\n\n':''; estado.ack='';
+    var pre=estado.ack?estado.ack+'\n':''; estado.ack='';
     bot(pre+p.q,function(){
       if(p.gps){botaoGps();say.hidden=true;}
       else if(p.o){opcoes(p.o,responder);say.hidden=false;sayIn.placeholder='Ou digite outra resposta';}
@@ -772,9 +823,9 @@ body.gated .float,body.chatting .float{display:none}
     estado=null;
     say.hidden=false; sayIn.placeholder='Ou escreva sua dúvida';
     bot(curto?'O que você procura?':'Me diz: o que você procura hoje? Pode tocar numa opção ou escrever sua dúvida.',function(){
-      opcoes(['Comprar','Vender','Trocar','Buscar um veículo','Produtos do Paraguai','Catálogo pra minha empresa'],function(o){
+      opcoes(['Comprar','Vender','Trocar','Buscar um veículo','Produtos do Paraguai','Catálogo p/ empresa'],function(o){
         bolha(o,'me');quick.innerHTML='';
-        escolher({'Comprar':'comprar','Vender':'vender','Trocar':'trocar','Buscar um veículo':'buscar','Produtos do Paraguai':'paraguai','Catálogo pra minha empresa':'catalogo'}[o]);
+        escolher({'Comprar':'comprar','Vender':'vender','Trocar':'trocar','Buscar um veículo':'buscar','Produtos do Paraguai':'paraguai','Catálogo p/ empresa':'catalogo'}[o]);
       });
     });
   }
@@ -796,7 +847,7 @@ body.gated .float,body.chatting .float{display:none}
         var r=document.createElement('button');r.type='button';r.className='chip';r.textContent='Começar de novo';
         r.addEventListener('click',function(){log.innerHTML='';quick.innerHTML='';menu();});
         quick.appendChild(r);
-        var c=document.createElement('button');c.type='button';c.className='chip';c.textContent='↩ Corrigir resposta';
+        var c=document.createElement('button');c.type='button';c.className='chip back';c.textContent='↩ Corrigir resposta';
         c.addEventListener('click',function(){salvo.i=salvo.passos.length;voltar(salvo);});
         quick.insertBefore(c,r);
         log.scrollTop=log.scrollHeight;
