@@ -423,7 +423,7 @@ footer{background:rgba(20,24,20,.6)}
 .pf-pill .dots i{width:14px;height:14px;border-radius:50%;border:2px solid #0b0e0a;margin-left:-5px}
 .pf-pill .dots i:nth-child(1){background:#a3ff6b;margin-left:0}.pf-pill .dots i:nth-child(2){background:#5ad1ff}
 .pf-pill .dots i:nth-child(3){background:#ffd166}.pf-pill .dots i:nth-child(4){background:#ff8fab}
-.pf-pill .go{background:#2f7cf6;color:#fff;border-radius:999px;padding:6px 14px;font-weight:700}
+.pf-pill .go{background:var(--neon);color:var(--black);border-radius:999px;padding:6px 14px;font-weight:700}
 .pf-pill:hover .go{background:var(--neon);color:#000}
 .pf-yr{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#cfd6cb}
 /* Cursores flutuando */
@@ -433,14 +433,20 @@ body.gated .pf *,.pf:not(.go) *{animation-play-state:paused!important}
 @keyframes drift{0%{transform:translate(0,0)}35%{transform:translate(var(--x1),var(--y1))}70%{transform:translate(var(--x2),var(--y2))}100%{transform:translate(var(--x3),var(--y3))}}
 
 @media (max-width:980px){
-  .pf{grid-template-columns:1fr 1fr;grid-template-areas:"tags tags" "photo photo" "left right" "bar bar";min-height:0}
+  .pf{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"tags tags" "photo photo" "left right" "bar bar";min-height:0}
   .pf-big{top:64px;font-size:clamp(80px,19vw,170px)}
   .pf-photo img{width:min(78%,400px)}
   .pf-left{padding-top:8px}
   .pf-right{padding-top:8px}
 }
 @media (max-width:640px){
-  .pf{grid-template-columns:1fr;grid-template-areas:"tags" "photo" "left" "right" "bar";border-radius:22px}
+  .pf{grid-template-columns:minmax(0,1fr);grid-template-areas:"tags" "photo" "left" "right" "bar";border-radius:22px}
+  .pf > *{min-width:0}
+  .pf-tags{flex-wrap:wrap;row-gap:6px}
+  .pf-on{white-space:normal}
+  .pf-cursors{display:none}
+  .pf-txt{max-width:none;overflow-wrap:break-word}
+  .pf-loc{font-size:11px}
   .pf-tags{padding:16px 16px 0}
   .pf-on,.pf-role b{font-size:10px;white-space:nowrap}
   .pf-role{font-size:10px}
@@ -467,6 +473,7 @@ body.gated .pf *,.pf:not(.go) *{animation-play-state:paused!important}
   .pf-cursors{display:none}
   .pf-on i{animation:none}
 }
+.float:not(.on) .tip-vic{display:none}
 </style>
 </head>
 <body class="gated">
@@ -510,7 +517,7 @@ body.gated .pf *,.pf:not(.go) *{animation-play-state:paused!important}
     <div class="pf" id="topo">
       <div class="pf-tags">
         <p class="pf-role"><b>Consultor de vendas</b><span>Carros · Motos · Paraguai</span></p>
-        <p class="pf-on"><i aria-hidden="true"></i>Disponível agora pra negócios</p>
+        <p class="pf-on"><i aria-hidden="true"></i>Disponível agora</p>
       </div>
 
       <div class="pf-big" aria-hidden="true">NEGÓCIOS</div>
