@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Caveat:wght@600;700&display=swap">
-<link rel="preload" as="image" href="foto-recorte.webp">
+<link rel="preload" as="image" href="pv-vendas.jpg">
 
 <script type="application/ld+json">
 {
@@ -474,6 +474,19 @@ body.gated .pf *,.pf:not(.go) *{animation-play-state:paused!important}
   .pf-on i{animation:none}
 }
 .float:not(.on) .tip-vic{display:none}
+@media (max-width:560px){.float:not(.on){opacity:0;pointer-events:none;transform:translateY(12px);transition:opacity .25s,transform .25s}}
+/* Foto da PV Vendas no topo */
+.brand-pic{margin:0 auto;width:min(100%,420px);position:relative}
+.brand-pic img{width:100%;height:auto;border-radius:50%;
+  filter:drop-shadow(0 0 22px rgba(163,255,107,.45)) drop-shadow(0 18px 40px rgba(0,0,0,.55));
+  animation:acende 1.4s ease-out .15s both}
+.brand-pic::after{content:"";position:absolute;inset:6% 4% -6%;z-index:-1;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(163,255,107,.35),transparent);filter:blur(18px)}
+@keyframes acende{from{opacity:0;transform:scale(.92);filter:drop-shadow(0 0 0 rgba(163,255,107,0))}to{opacity:1;transform:none}}
+@media (max-width:860px){.brand-pic{order:-1;width:min(86vw,360px)}}
+@media (max-width:560px){.brand-pic{width:min(84vw,330px);margin-top:4px}}
+@media (prefers-reduced-motion:reduce){.brand-pic img{animation:none}}
+.float:not(.on) .tip-vic{display:none}
 </style>
 </head>
 <body class="gated">
@@ -513,49 +526,19 @@ body.gated .pf *,.pf:not(.go) *{animation-play-state:paused!important}
 </header>
 
 <main id="conteudo">
-  <div class="wrap pf-wrap">
-    <div class="pf" id="topo">
-      <div class="pf-tags">
-        <p class="pf-role"><b>Consultor de vendas</b><span>Carros · Motos · Paraguai</span></p>
-        <p class="pf-on"><i aria-hidden="true"></i>Disponível agora</p>
-      </div>
-
-      <div class="pf-big" aria-hidden="true">NEGÓCIOS</div>
-
-      <div class="pf-photo">
-        <img src="foto-recorte.webp" alt="Consultor da PV Vendas segurando dinheiro e uma prancheta" width="512" height="512" fetchpriority="high">
-      </div>
-
-      <div class="pf-left">
-        <p class="pf-hi">Bem-vindo à</p>
-        <h1 class="pf-name">PV VENDAS<em>.</em></h1>
-        <p class="pf-sub">Carros, motos &amp;<br>produtos do Paraguai</p>
-        <p class="pf-txt">Seu próximo carro, sua moto ou aquele produto do Paraguai: eu resolvo. Compro, vendo, troco e busco veículos, e trago o que você pedir.</p>
-        <button class="btn pf-btn" type="button" data-flow="">Começar atendimento <span aria-hidden="true">→</span></button>
-        <p class="pf-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Fortaleza e região · <a class="wa" data-msg="Olá! Vim pelo site da PV Vendas." href="https://wa.me/5585986812394">(85) 98681-2394</a></p>
-      </div>
-
-      <div class="pf-right">
-        <p class="pf-quote"><span class="pf-star" aria-hidden="true">✳</span>Troca, compra ou venda.<br>Eu resolvo pra você.</p>
-        <ul class="pf-stats">
-          <li><strong><b data-n="24">24</b><em>h</em></strong><span>Atendo em<br>qualquer horário</span></li>
-          <li><strong><b data-n="6">6</b></strong><span>Serviços na<br>vitrine</span></li>
-          <li><strong><b data-n="2">2</b><em>+</em></strong><span>Produtos do Paraguai<br>= preço melhor ↗</span></li>
-        </ul>
-      </div>
-
-      <div class="pf-bar">
-        <a class="pf-play" href="#servicos"><span aria-hidden="true">▶</span>Ver a vitrine por dentro</a>
-        <button class="pf-pill" type="button" data-flow="" aria-label="Falar com a Vic">
-          <span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-          <span><b>Vic online</b> · responde na hora</span>
-          <span class="go">Falar</span>
-        </button>
-        <span class="pf-yr">Troca, compra ou venda / 2026</span>
-      </div>
-
-      <div class="pf-cursors" aria-hidden="true"></div>
+  <div class="wrap hero">
+    <div>
+      <h1>Seu próximo carro, sua moto ou aquele produto do Paraguai. Eu resolvo.</h1>
+      <p>Sou consultor de vendas em Fortaleza e região. Compro, vendo, troco e busco veículos, e trago do Paraguai o que você pedir.</p>
+      <button class="btn" type="button" data-flow="">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.3L3 21z"/></svg>
+        Começar atendimento
+      </button>
+      <span class="phone">Prefere direto? <a class="wa" data-msg="Olá! Vim pelo site da PV Vendas." href="https://wa.me/5585986812394">Chame no WhatsApp (85) 98681-2394</a></span>
     </div>
+    <figure class="brand-pic">
+      <img src="pv-vendas.jpg" alt="PV Vendas: consultor segurando dinheiro e uma prancheta, telefone (85) 98681-2394, @_pv_vendas_, Troca, Compra ou Venda" width="840" height="918" fetchpriority="high">
+    </figure>
   </div>
 
   <section id="servicos" aria-labelledby="t-servicos">
@@ -1041,7 +1024,7 @@ body.gated .pf *,.pf:not(.go) *{animation-play-state:paused!important}
     });
   }
 
-  var fl=document.querySelector('.float'), hero=document.querySelector(".pf-btn");
+  var fl=document.querySelector('.float'), hero=document.querySelector(".hero .btn");
   if('IntersectionObserver' in window){
     new IntersectionObserver(function(e){fl.classList.toggle('on',!e[0].isIntersecting&&e[0].boundingClientRect.top<0);}).observe(hero);
   }
