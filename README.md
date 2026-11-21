@@ -1,5 +1,8 @@
 # PV Vendas
 
-Landing page da PV Vendas: consultoria de carros, motos e produtos do Paraguai em Fortaleza.
+Site da PV Vendas: veículos (compra, venda, troca e busca) e eletrônicos do Paraguai, com a assistente Vic.
+
+- `index.html`: site atual
+- `site-antigo.html`: versão anterior
 
 Site: https://8rytdz8k66-cyber.github.io/catalogo-tg/
