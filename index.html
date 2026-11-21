@@ -675,8 +675,8 @@ body.vlock{overflow:hidden}
     $('#contactText').textContent = S.contact.text;
     const fmt = n => { const d = String(n).replace(/\D/g, '').replace(/^55/, ''); return d.length >= 10 ? `(${d.slice(0, 2)}) ${d.slice(2, d.length - 4)}-${d.slice(-4)}` : n; };
     $('#clist').innerHTML = [
-      `<a class="wa" data-msg="Olá! Vim pelo site." href="#"><span>${fmt(C.whatsapp)}</span><small>WhatsApp ↗</small></a>`,
-      C.whatsappPy ? `<a target="_blank" rel="noopener" href="${waLink('Olá! Quero produtos do Paraguai.', C.whatsappPy)}"><span>${fmt(C.whatsappPy)}</span><small>Paraguai ↗</small></a>` : '',
+      `<a class="tovic" data-vic="all" href="#"><span>${fmt(C.whatsapp)}</span><small>WhatsApp ↗</small></a>`,
+      C.whatsappPy ? `<a class="tovic" data-vic="py" href="#"><span>${fmt(C.whatsappPy)}</span><small>Paraguai ↗</small></a>` : '',
       C.instagram ? `<a target="_blank" rel="noopener" href="https://www.instagram.com/${P.esc(C.instagram)}/"><span>@${P.esc(C.instagram)}</span><small>Instagram ↗</small></a>` : '',
       `<a href="#topo" data-go="topo"><span>${P.esc(C.hours)}</span><small>${P.esc(C.city)}</small></a>`
     ].join('');
@@ -890,14 +890,22 @@ body.vlock{overflow:hidden}
       setTimeout(() => { el.classList.remove('vic-here'); flag.remove(); }, 6000);
     }, reduce ? 50 : 900);
   }
-  function openVic() {
+  function openVic(entry) {
+    V.entry = typeof entry === 'string' ? entry : '';
     V.bg.hidden = false; document.body.classList.add('vlock'); $('#vicOpen').classList.add('hide');
     V.log.innerHTML = ''; V.q.innerHTML = ''; V.st = null; V.img = null;
     if (!V.nome) vb('Oi! Que bom ter você aqui. 😊 Eu sou a Vic, assistente da PV Vendas. Como posso te chamar?', () => { V.inp.placeholder = 'Seu nome'; V.inp.focus({ preventScroll: true }); V.mode = 'nome'; });
     else vb('Oi, ' + first() + '! Que bom te ver de novo. 😊', menu);
   }
+  function direct(o) { vu(o.t); V.q.innerHTML = ''; vb('Show! Vou anotar tudo pro Paulo.', () => start(o)); }
+  function menuDirect() {
+    const py = V.entry === 'py'; V.mode = 'menu'; V.st = null; V.inp.placeholder = 'Ou escreva o que procura';
+    const list = py ? OPTS.filter(o => o.py) : OPTS;
+    vb(py ? 'Quais produtos você quer? Toca numa opção e eu anoto tudo pro Paulo.\n📷 Se tiver foto do produto, manda no ícone de imagem aqui embaixo!' : 'O que você deseja? Toca numa opção que eu anoto tudo e já mando pro Paulo.', () => vq(list.map(o => ({ t: o.t, f: () => direct(o) })).concat(py ? [{ t: '📷 Mandar foto do produto', c: 'wide', f: () => $('#vImg').click() }] : []).concat([{ t: 'Prefiro falar direto no WhatsApp ↗', c: 'back', href: waLink('Olá! Vim pelo site da PV Vendas.', py ? SITE.contacts.whatsappPy : SITE.contacts.whatsapp) }])));
+  }
   function closeVic() { V.bg.hidden = true; document.body.classList.remove('vlock'); $('#vicOpen').classList.remove('hide'); }
   function menu() {
+    if (V.entry) return menuDirect();
     V.mode = 'menu'; V.st = null; V.inp.placeholder = 'Ou escreva o que procura';
     vb('O que você está procurando hoje?\n📷 Quer um produto do Paraguai? Me manda uma foto dele no ícone de imagem aqui embaixo que o Paulo vai atrás!', () => vq(OPTS.map(o => ({ t: o.t, f: () => { vu(o.t); pick(o); } }))));
   }
@@ -936,7 +944,7 @@ body.vlock{overflow:hidden}
     vb('Perfeito, ' + (first() || 'tudo certo') + '! Anotei tudo direitinho. Muito obrigada pela confiança! 💚', () => vb('Toque no botão pra mandar o resumo no WhatsApp' + (o.py ? '.' : ' pro Paulo.') + (o.k === 'vender' ? '\n📸 Já manda as fotos por lá também!' : '') + (V.img ? '\n📎 Depois é só mandar a foto do produto na conversa' + (canPic() ? ' (pode usar o botão de compartilhar aqui embaixo).' : '.') : ''), () => vq([
       { t: 'Enviar resumo no WhatsApp ↗', c: 'go', href: url }].concat(canPic() ? [{ t: '📷 Compartilhar a foto no WhatsApp', c: 'wide', f: () => navigator.share({ files: [V.img], text: 'Foto do produto que eu quero (PV Vendas)' }).catch(() => {}) }] : []).concat([
       { t: '↩ Corrigir resposta', c: 'back', f: () => { S.i = steps().length; V.mode = 'flow'; back(); } },
-      { t: 'Começar de novo', c: 'wide', f: () => { V.log.innerHTML = ''; V.img = null; menu(); } }]))));
+      { t: 'Começar de novo', c: 'wide', f: () => { V.log.innerHTML = ''; V.img = null; V.entry = ''; menu(); } }]))));
   }
   const KEYS = [['comprar', /compr|quero um|carro|moto|onix|mobi|gol|corolla|cg|titan|fan|factor/], ['vender', /vend/], ['trocar', /troc/], ['buscar', /busc|procur|encontr|achar/],
     ['ipad', /ipad|tablet/], ['mac', /mac|notebook|laptop|computador/], ['fones', /fone|airpod|jbl|caixa de som|headset|[aá]udio/], ['celulares', /iphone|celular|apple|smartphone|android|samsung|xiaomi|eletr/], ['foto', /foto|imagem|print/], ['outros', /perfum|acess|rel[oó]gio|capinha/], ['catalogo', /site|cat[aá]logo|empresa|loja|card[aá]pio/]];
@@ -949,7 +957,8 @@ body.vlock{overflow:hidden}
     else if (hit) pick(OPTS.find(o => o.k === hit[0]));
     else vb('Hmm, essa eu não sei responder aqui. 😅 Toca numa das opções ou fala direto com a gente no WhatsApp.', () => vq(OPTS.map(o => ({ t: o.t, f: () => { vu(o.t); pick(o); } })).concat([{ t: 'Falar no WhatsApp ↗', c: 'go', href: waLink('Olá! Vim pelo site da PV Vendas.') }])));
   });
-  $('#vicOpen').addEventListener('click', openVic);
+  $('#vicOpen').addEventListener('click', () => openVic());
+  document.addEventListener('click', e => { const a = e.target.closest('.tovic'); if (!a) return; e.preventDefault(); openVic(a.dataset.vic); });
   $('#vicX').addEventListener('click', closeVic);
   V.bg.addEventListener('click', e => { if (e.target === V.bg) closeVic(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !V.bg.hidden) closeVic(); });
