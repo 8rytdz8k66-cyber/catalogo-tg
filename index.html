@@ -307,7 +307,7 @@ footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;paddin
 
 
 /* Vic */
-.vicbtn{position:fixed;right:16px;bottom:calc(84px + var(--safe-b));z-index:46;display:flex;align-items:center;gap:10px;border:0;background:transparent;padding:0;cursor:pointer;transition:transform .6s var(--ease),opacity .4s}
+.vicbtn{position:fixed;right:16px;bottom:calc(16px + var(--safe-b));z-index:46;display:flex;align-items:center;gap:10px;border:0;background:transparent;padding:0;cursor:pointer;transition:transform .6s var(--ease),opacity .4s}
 .vicbtn img{width:58px;height:58px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 3px var(--accent),0 14px 30px rgba(0,0,0,.4)}
 .vicbtn .dot{position:absolute;right:1px;bottom:3px;width:14px;height:14px;border-radius:50%;background:var(--accent);border:2px solid var(--dark)}
 .vicbtn .tip{order:-1;background:rgba(10,11,9,.86);color:#f3f1e8;border:1px solid rgba(255,255,255,.16);padding:9px 13px;border-radius:16px 16px 4px 16px;font-size:14px;font-weight:600;white-space:nowrap;box-shadow:0 10px 26px rgba(0,0,0,.35)}
@@ -557,7 +557,6 @@ body.vlock{overflow:hidden}
 </main>
 
 <footer><span id="footName">© PV Vendas</span><span id="footCity">Fortaleza e região</span></footer>
-<a class="fab wa" id="fab" data-msg="Olá! Vim pelo site." href="#" aria-label="Chamar no WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.3L3 21z"/></svg>WhatsApp</a>
 
 <button class="vicbtn" id="vicOpen" type="button" aria-label="Falar com a Vic, assistente virtual"><span class="tip">Posso ajudar? 😊</span><img src="vic.jpg" alt="" width="58" height="58"><span class="dot" aria-hidden="true"></span></button>
 <div class="vs-bg" id="vicBg" hidden>
@@ -798,7 +797,6 @@ body.vlock{overflow:hidden}
     $$('#rail a').forEach(a => a.classList.toggle('on', a.dataset.go === activeId));
     // nav
     const nav = $('#nav'); nav.classList.toggle('solid', y > 40); nav.classList.toggle('hide', y > lastY + 4 && y > vh * .8 && !sheet.classList.contains('open')); if (y < lastY - 4) nav.classList.remove('hide'); lastY = y;
-    $('#fab').classList.toggle('show', y > vh * .7);
     if (reduce) return;
     // hero: carro afasta e sobe
     const hp = Math.min(y / vh, 1.2);
