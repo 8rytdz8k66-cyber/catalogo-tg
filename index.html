@@ -387,7 +387,7 @@ body.vlock{overflow:hidden}
   <nav class="links" aria-label="Seções">
     <a href="#inicio" data-view="inicio">Início</a><a href="#veiculos" data-view="veiculos">Veículos</a><a href="#eletronicos" data-view="eletronicos">Eletrônicos</a><a href="#empresas" data-go="empresas">Empresas</a>
   </nav>
-  <a class="btn navcta wa" data-msg="Olá! Vim pelo site." href="#">WhatsApp <span class="ar">↗</span></a>
+  <a class="btn navcta wa" data-vic="all" data-msg="Olá! Vim pelo site." href="#">WhatsApp <span class="ar">↗</span></a>
   <button class="burger" id="burger" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="sheet"><span></span></button>
 </header>
 
@@ -400,7 +400,7 @@ body.vlock{overflow:hidden}
     <a href="#empresas" data-go="empresas">Para <i>empresas</i></a>
     <a href="#contato" data-go="contato">Contato</a>
   </nav>
-  <div class="foot"><span id="sheetCity">Fortaleza e região</span><a class="wa" data-msg="Olá! Vim pelo site." href="#">WhatsApp ↗</a></div>
+  <div class="foot"><span id="sheetCity">Fortaleza e região</span><a class="wa" data-vic="all" data-msg="Olá! Vim pelo site." href="#">WhatsApp ↗</a></div>
 </div>
 
 <nav class="rail" id="rail" aria-label="Indicador de seções"></nav>
@@ -427,7 +427,7 @@ body.vlock{overflow:hidden}
   <!-- destaque -->
   <section class="banner" id="destaque" data-view="inicio" data-tone="dark" aria-label="Destaque">
     <figure class="bn clip"><a id="bannerLink" href="#" target="_blank" rel="noopener"><img id="bannerImg" alt="" data-zoom="soft" loading="lazy"></a></figure>
-    <div class="cap rv"><span id="bannerCap">Carros, motos, Apple e eletrônicos em um só lugar.</span><a class="wa" data-msg="Olá! Vi o destaque no site e quero saber mais." href="#">Quero saber mais ↗</a></div>
+    <div class="cap rv"><span id="bannerCap">Carros, motos, Apple e eletrônicos em um só lugar.</span><a class="wa" data-vic="all" data-msg="Olá! Vi o destaque no site e quero saber mais." href="#">Quero saber mais ↗</a></div>
   </section>
 
   <!-- portas -->
@@ -474,7 +474,7 @@ body.vlock{overflow:hidden}
       <div class="stack" id="tradeStack" aria-hidden="true"></div>
       <p class="body rv" id="tradeText" style="margin-top:30px"></p>
       <ul class="points" id="tradePoints"></ul>
-      <a class="btn wa rv" data-msg="Olá! Quero comprar, vender ou trocar um veículo." href="#">Avaliar meu veículo <span class="ar">↗</span></a>
+      <a class="btn wa rv" data-vic="troca" data-msg="Olá! Quero comprar, vender ou trocar um veículo." href="#">Avaliar meu veículo <span class="ar">↗</span></a>
     </div>
     <figure class="pic clip" style="margin:0">
       <div class="bg" data-par="0.12"></div>
@@ -541,7 +541,7 @@ body.vlock{overflow:hidden}
       <h2 class="h-lg split" id="h-biz">Sua empresa merece um site assim.</h2>
       <p class="body rv" id="bizText" style="margin-top:24px"></p>
       <div class="segs rv" id="segs"></div>
-      <a class="btn solid wa rv" data-msg="Olá! Quero um site/catálogo pra minha empresa." href="#">Quero o site da minha empresa <span class="ar">↗</span></a>
+      <a class="btn solid wa rv" data-vic="catalogo" data-msg="Olá! Quero um site/catálogo pra minha empresa." href="#">Quero o site da minha empresa <span class="ar">↗</span></a>
     </div>
     <figure class="phones-img" id="phonesRise" style="margin:0">
       <span class="floor" aria-hidden="true"></span>
@@ -566,7 +566,7 @@ body.vlock{overflow:hidden}
     <div class="vs-top"><img src="vic.jpg" alt="" width="44" height="44"><div><b id="vicT">Vic · PV Vendas</b><span>Assistente virtual · online</span></div><button type="button" id="vicX" aria-label="Fechar">×</button></div>
     <div class="vs-log" id="vLog" aria-live="polite"></div>
     <div class="vs-q" id="vQ"></div>
-    <form class="vs-f" id="vF"><label class="vs-cam" for="vImg" title="Mandar foto do produto" aria-label="Mandar foto do produto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></label><input type="file" id="vImg" accept="image/*" class="sr"><label for="vIn" class="sr">Sua resposta</label><input id="vIn" autocomplete="off" placeholder="Escreva aqui" enterkeyhint="send"><button type="submit" aria-label="Enviar">→</button></form>
+    <form class="vs-f" id="vF"><label class="vs-cam" for="vImg" title="Mandar foto do produto" aria-label="Mandar foto do produto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></label><input type="file" id="vImg" accept="image/*" multiple class="sr"><label for="vIn" class="sr">Sua resposta</label><input id="vIn" autocomplete="off" placeholder="Escreva aqui" enterkeyhint="send"><button type="submit" aria-label="Enviar">→</button></form>
   </div>
 </div>
 <script src="shared.js"></script>
@@ -644,7 +644,7 @@ body.vlock{overflow:hidden}
         <span class="price">${P.esc(v.price || 'Consulte')}</span>
         ${v.desc ? `<p>${P.esc(v.desc)}</p>` : ''}
         ${info.length ? `<div class="chips">${info.map(x => `<span>${P.esc(x)}</span>`).join('')}</div>` : ''}
-        <a class="btn ask" target="_blank" rel="noopener" href="${waLink('Olá! Tenho interesse no ' + v.model + (v.year && real.length ? ' ' + v.year : '') + '.')}">${real.length ? 'Tenho interesse' : 'Ver estoque atual'} <span class="ar">↗</span></a></div>
+        <a class="btn ask" data-vic="comprar" data-item="${P.esc(v.model)}" data-kind="${v.kind === 'moto' ? 'Moto' : 'Carro'}" target="_blank" rel="noopener" href="${waLink('Olá! Tenho interesse no ' + v.model + (v.year && real.length ? ' ' + v.year : '') + '.')}">${real.length ? 'Tenho interesse' : 'Ver estoque atual'} <span class="ar">↗</span></a></div>
       </article>`;
     }).join('') + `<article class="veh end"><div><p class="kicker" style="justify-content:center">Não achou?</p><p class="h-md">A gente <em>encontra.</em></p><a class="btn" href="#busca" data-go="busca" style="margin-top:22px">Pedir uma busca <span class="ar">↓</span></a></div></article>`;
     $('#veiculos').style.setProperty('--n', list.length + 1);
@@ -675,8 +675,8 @@ body.vlock{overflow:hidden}
     $('#contactText').textContent = S.contact.text;
     const fmt = n => { const d = String(n).replace(/\D/g, '').replace(/^55/, ''); return d.length >= 10 ? `(${d.slice(0, 2)}) ${d.slice(2, d.length - 4)}-${d.slice(-4)}` : n; };
     $('#clist').innerHTML = [
-      `<a class="tovic" data-vic="all" href="#"><span>${fmt(C.whatsapp)}</span><small>WhatsApp ↗</small></a>`,
-      C.whatsappPy ? `<a class="tovic" data-vic="py" href="#"><span>${fmt(C.whatsappPy)}</span><small>Paraguai ↗</small></a>` : '',
+      `<a data-vic="all" href="#"><span>${fmt(C.whatsapp)}</span><small>WhatsApp ↗</small></a>`,
+      C.whatsappPy ? `<a data-vic="py" href="#"><span>${fmt(C.whatsappPy)}</span><small>Paraguai ↗</small></a>` : '',
       C.instagram ? `<a target="_blank" rel="noopener" href="https://www.instagram.com/${P.esc(C.instagram)}/"><span>@${P.esc(C.instagram)}</span><small>Instagram ↗</small></a>` : '',
       `<a href="#topo" data-go="topo"><span>${P.esc(C.hours)}</span><small>${P.esc(C.city)}</small></a>`
     ].join('');
@@ -714,7 +714,7 @@ body.vlock{overflow:hidden}
       $('#obj').innerHTML = photo ? `<img src="${P.esc(P.imgUrl(photo.photo))}" alt="${P.esc(photo.name)}">` : P.ILLUS[P.KIND_BY_CAT[c] || 'outro'];
       $('#catNum').textContent = String(cat + 1).padStart(2, '0') + ' — ' + c;
       $('#catTitle').textContent = c;
-      $('#plist').innerHTML = items.map((p, k) => `<li data-k="${k}"${p.photo ? ' style="cursor:pointer"' : ''}><b>${P.esc(p.name)}</b>${p.desc ? `<p>${P.esc(p.desc)}</p>` : ''}<span class="pr"><span>${P.esc(p.price || 'Consulte')}</span><a target="_blank" rel="noopener" href="${waLink('Olá! Quero consultar: ' + p.name + ' (' + c + ').', SITE.contacts.whatsappPy)}">Consultar ↗</a></span></li>`).join('');
+      $('#plist').innerHTML = items.map((p, k) => `<li data-k="${k}"${p.photo ? ' style="cursor:pointer"' : ''}><b>${P.esc(p.name)}</b>${p.desc ? `<p>${P.esc(p.desc)}</p>` : ''}<span class="pr"><span>${P.esc(p.price || 'Consulte')}</span><a data-vic="produto" data-item="${P.esc(p.name)}" data-cat="${P.esc(c)}" target="_blank" rel="noopener" href="${waLink('Olá! Quero consultar: ' + p.name + ' (' + c + ').', SITE.contacts.whatsappPy)}">Consultar ↗</a></span></li>`).join('');
       art.classList.remove('swap');
     };
     if (first || reduce) return paint();
@@ -841,7 +841,7 @@ body.vlock{overflow:hidden}
   const OPTS = [
     { k: 'comprar', t: 'Comprar carro ou moto', go: () => mark('#track .veh .ask', 'veiculos', 'Escolha aqui e toque em "Tenho interesse"'), title: 'Quero comprar',
       steps: [{ k: 'Tipo', q: 'É carro ou moto?', o: ['Carro', 'Moto'] }, { k: 'Modelo', q: 'Qual modelo? Pode tocar num da vitrine ou escrever outro.', o: st => vehs(st.r.Tipo).slice(0, 6) },
-        { k: 'Ano a partir de', q: 'A partir de que ano?' }, { k: 'Orçamento', q: 'Até quanto você quer investir?' }, { k: 'Pagamento', q: 'Como pretende pagar?\n💡 Ter um veículo pra dar na troca ajuda bastante.', o: ['À vista', 'Financiado', 'Com troca'] }] },
+        { k: 'Uso', q: 'E vai usar mais pra quê? Assim o Paulo já pensa no melhor pra você. 😊', o: ['Trabalho', 'Dia a dia', 'Família', 'Aplicativo'] }, { k: 'Ano a partir de', q: 'A partir de que ano?' }, { k: 'Orçamento', q: 'Até quanto você quer investir?' }, { k: 'Pagamento', q: 'Como pretende pagar?\n💡 Ter um veículo pra dar na troca ajuda bastante.', o: ['À vista', 'Financiado', 'Com troca'] }] },
     { k: 'vender', t: 'Vender meu veículo', go: () => mark('.trade .btn.wa', 'troca', 'Toque aqui pra avaliar seu veículo'), title: 'Quero vender',
       steps: [{ k: 'Tipo', q: 'É carro ou moto?', o: ['Carro', 'Moto'] }, { k: 'Modelo e ano', q: 'Qual o modelo e o ano?' }, { k: 'Km', q: 'Quantos km, mais ou menos?' }, { k: 'Valor desejado', q: 'Quanto você quer nele?' }], note: 'Vou mandar as fotos aqui.' },
     { k: 'trocar', t: 'Trocar meu veículo', go: () => mark('.trade .btn.wa', 'troca', 'Toque aqui pra começar a troca'), title: 'Quero trocar',
@@ -854,23 +854,33 @@ body.vlock{overflow:hidden}
     { k: 'fones', t: 'Fones e áudio', cat: 'Fones e áudio', title: 'Fones e áudio', py: true },
     { k: 'outros', t: 'Perfumes e acessórios', cat: 'Perfumes', title: 'Perfumes e acessórios', py: true },
     { k: 'catalogo', t: 'Site para minha empresa', go: () => mark('#empresas .btn.wa', 'empresas', 'Toque aqui pra pedir o seu'), title: 'Site para empresa',
-      steps: [{ k: 'Empresa', q: 'Qual o nome da sua empresa?' }, { k: 'Segmento', q: 'O que ela vende ou faz?' }, { k: 'No site', q: 'O que quer mostrar?', o: ['Produtos com preço', 'Serviços', 'Cardápio', 'Um pouco de tudo'] }, { k: 'Prazo', q: 'Pra quando?', o: ['O quanto antes', 'Até 15 dias', 'Sem pressa'] }] }
+      steps: [{ k: 'Interesse', q: 'Você deseja fazer um catálogo pra sua empresa? 😊', o: ['Sim, quero um catálogo', 'Quero um site completo', 'Quero entender melhor'] },
+        { k: 'Empresa', q: 'Que legal! Como é o nome da sua empresa?' },
+        { k: 'Ramo', q: 'Qual o ramo dela? Me conta um pouquinho do que ela faz. 🤩', o: () => (SITE.catalog.segments || []).slice(0, 6) },
+        { k: 'Instagram ou site', q: 'Ela já tem Instagram ou site? Se tiver, me passa o @.', o: ['Ainda não tem'] },
+        { k: 'Fotos', fotos: true, q: 'Me manda umas imagens da empresa: logo, produtos, fachada, o que tiver. 📷\nÉ só tocar no ícone de imagem aqui embaixo. Pode mandar várias!', o: ['Já mandei', 'Mando depois'] },
+        { k: 'No site', q: 'O que você quer mostrar no catálogo?', o: ['Produtos com preço', 'Serviços', 'Cardápio', 'Um pouco de tudo'] },
+        { k: 'Prazo', q: 'E pra quando você precisa?', o: ['O quanto antes', 'Até 15 dias', 'Sem pressa'] }] }
   ];
   OPTS.filter(o => o.py).forEach(o => {
     o.go = () => { const i = CATS.indexOf(o.cat); if (i >= 0) showCat(i, true); mark('#plist li a', 'paraguai', 'Toque em "Consultar" no que você quer'); };
     o.steps = [{ k: 'Produto', q: 'Qual produto você quer? Modelo, cor e capacidade, se souber.\n📷 Tem foto? Toca no ícone de imagem aqui embaixo e me manda, que o Paulo vai atrás dele pra você!', o: () => prodsOf(o.cat).slice(0, 6) },
+      { k: 'Detalhes', q: 'Tem preferência de cor, capacidade ou versão?', o: ['Sem preferência'] },
+      { k: 'Pra quem', q: 'É pra você ou pra dar de presente? 🎁', o: ['Pra mim', 'Presente', 'Pra revender'] },
       { k: 'Quantidade', q: 'Quantas unidades?\n🔥 Levando 2 ou mais, o preço fica ainda melhor!', o: ['1', '2', '3 ou mais'] }, { k: 'Prazo', q: 'Pra quando você precisa?', o: ['O quanto antes', 'Até 15 dias', 'Sem pressa'] }];
   });
   const OPT_FOTO = { k: 'foto', t: 'Produto por foto', title: 'Produto do Paraguai (por foto)', py: true,
     steps: [{ k: 'Produto', q: 'Quer me dizer algo sobre ele? Modelo, cor, capacidade…', o: ['Só a foto mesmo'] },
       { k: 'Quantidade', q: 'Quantas unidades?\n🔥 Levando 2 ou mais, o preço fica ainda melhor!', o: ['1', '2', '3 ou mais'] }, { k: 'Prazo', q: 'Pra quando você precisa?', o: ['O quanto antes', 'Até 15 dias', 'Sem pressa'] }] };
-  V.img = null;
-  const canPic = () => { try { return !!(V.img && navigator.canShare && navigator.canShare({ files: [V.img] })); } catch (e) { return false; } };
+  V.imgs = [];
+  const canPic = () => { try { return !!(V.imgs.length && navigator.canShare && navigator.canShare({ files: V.imgs })); } catch (e) { return false; } };
   $('#vImg').addEventListener('change', e => {
-    const f = e.target.files && e.target.files[0]; e.target.value = ''; if (!f || !/^image\//.test(f.type)) return;
+    const fs = [...(e.target.files || [])].filter(f => /^image\//.test(f.type)).slice(0, 10); e.target.value = ''; if (!fs.length) return;
     if (V.mode === 'nome') { vb('Antes, me diz seu nome? 😊'); return; }
-    V.img = f; const d = document.createElement('div'); d.className = 'vm u pic'; const im = document.createElement('img'); im.alt = 'Foto do produto enviada'; im.src = URL.createObjectURL(f); im.onload = () => { V.log.scrollTop = 1e6; }; d.appendChild(im); V.log.appendChild(d); V.log.scrollTop = 1e6;
+    fs.forEach(f => { V.imgs.push(f); const d = document.createElement('div'); d.className = 'vm u pic'; const im = document.createElement('img'); im.alt = 'Imagem enviada'; im.src = URL.createObjectURL(f); im.onload = () => { V.log.scrollTop = 1e6; }; d.appendChild(im); V.log.appendChild(d); });
+    V.log.scrollTop = 1e6;
     const S = V.st;
+    if (V.mode === 'flow' && S && steps()[S.i].fotos) { vb((fs.length > 1 ? 'Recebi as imagens' : 'Recebi') + '! Ficou ótimo. 😍 Pode mandar mais ou tocar em "Já mandei".'); return; }
     if (V.mode === 'flow' && S && S.o.py && steps()[S.i].k === 'Produto') { V.q.innerHTML = ''; S.r['Produto'] = 'Conforme a foto 📷'; S.i++; S.ack = 'Que produto lindo! 😍 O Paulo vai atrás dele pra você.'; ask(); return; }
     if (V.mode === 'flow' || V.mode === 'done') { vb('Recebi a foto! 📷 Vou colocar no resumo.', () => { if (V.mode === 'done') finish(); }); return; }
     V.q.innerHTML = ''; vb('Que produto lindo! 😍 O Paulo vai atrás dele pra você. Só mais umas perguntinhas rápidas.', () => start(OPT_FOTO));
@@ -891,21 +901,29 @@ body.vlock{overflow:hidden}
     }, reduce ? 50 : 900);
   }
   function openVic(entry) {
-    V.entry = typeof entry === 'string' ? entry : '';
+    V.entry = entry && entry.v ? entry : (typeof entry === 'string' && entry ? { v: entry } : null);
     V.bg.hidden = false; document.body.classList.add('vlock'); $('#vicOpen').classList.add('hide');
-    V.log.innerHTML = ''; V.q.innerHTML = ''; V.st = null; V.img = null;
+    V.log.innerHTML = ''; V.q.innerHTML = ''; V.st = null; V.imgs = [];
     if (!V.nome) vb('Oi! Que bom ter você aqui. 😊 Eu sou a Vic, assistente da PV Vendas. Como posso te chamar?', () => { V.inp.placeholder = 'Seu nome'; V.inp.focus({ preventScroll: true }); V.mode = 'nome'; });
     else vb('Oi, ' + first() + '! Que bom te ver de novo. 😊', menu);
   }
   function direct(o) { vu(o.t); V.q.innerHTML = ''; vb('Show! Vou anotar tudo pro Paulo.', () => start(o)); }
+  function route() {
+    const E = V.entry, by = k => OPTS.find(o => o.k === k);
+    if (E.v === 'catalogo') return vb('Que alegria ver você por aqui! 🤩 A gente cria sites e catálogos com a cara da sua empresa.', () => start(by('catalogo')));
+    if (E.v === 'troca') { V.mode = 'menu'; return vb('Vamos cuidar do seu veículo! 🚗 Você quer vender ou trocar?', () => vq([{ t: 'Quero vender', f: () => direct(by('vender')) }, { t: 'Quero trocar', f: () => direct(by('trocar')) }, { t: 'Quero comprar', c: 'wide', f: () => direct(by('comprar')) }])); }
+    if (E.v === 'comprar' && E.item) return vb('Ótima escolha! 😍 O ' + E.item + ' é muito procurado. Vou te fazer umas perguntinhas rápidas pra o Paulo te atender certinho.', () => start(by('comprar'), { Tipo: E.kind || 'Carro', Modelo: E.item }));
+    if (E.v === 'produto' && E.item) { const o = OPTS.find(x => x.py && x.cat === E.cat) || by('celulares'); return vb('Boa escolha! ' + E.item + ' é sucesso. 😍 Me conta só mais uns detalhes pra o Paulo separar pra você.', () => start(o, { Produto: E.item })); }
+    return menuDirect();
+  }
   function menuDirect() {
-    const py = V.entry === 'py'; V.mode = 'menu'; V.st = null; V.inp.placeholder = 'Ou escreva o que procura';
+    const py = V.entry && V.entry.v === 'py'; V.mode = 'menu'; V.st = null; V.inp.placeholder = 'Ou escreva o que procura';
     const list = py ? OPTS.filter(o => o.py) : OPTS;
     vb(py ? 'Quais produtos você quer? Toca numa opção e eu anoto tudo pro Paulo.\n📷 Se tiver foto do produto, manda no ícone de imagem aqui embaixo!' : 'O que você deseja? Toca numa opção que eu anoto tudo e já mando pro Paulo.', () => vq(list.map(o => ({ t: o.t, f: () => direct(o) })).concat(py ? [{ t: '📷 Mandar foto do produto', c: 'wide', f: () => $('#vImg').click() }] : []).concat([{ t: 'Prefiro falar direto no WhatsApp ↗', c: 'back', href: waLink('Olá! Vim pelo site da PV Vendas.', py ? SITE.contacts.whatsappPy : SITE.contacts.whatsapp) }])));
   }
   function closeVic() { V.bg.hidden = true; document.body.classList.remove('vlock'); $('#vicOpen').classList.remove('hide'); }
   function menu() {
-    if (V.entry) return menuDirect();
+    if (V.entry) return route();
     V.mode = 'menu'; V.st = null; V.inp.placeholder = 'Ou escreva o que procura';
     vb('O que você está procurando hoje?\n📷 Quer um produto do Paraguai? Me manda uma foto dele no ícone de imagem aqui embaixo que o Paulo vai atrás!', () => vq(OPTS.map(o => ({ t: o.t, f: () => { vu(o.t); pick(o); } }))));
   }
@@ -916,8 +934,8 @@ body.vlock{overflow:hidden}
       { t: '✍️ Já sei o que quero', c: 'wide', f: () => { vu('Já sei o que quero'); start(o); } },
       { t: '↩ Voltar', c: 'back', f: () => { vu('Voltar'); menu(); } }]));
   }
-  function start(o) { V.st = { o, i: 0, r: {}, m: [] }; V.mode = 'flow'; ask(); }
-  function steps() { return V.st.o.steps.concat([{ k: 'Melhor horário', q: 'Pra finalizar: qual o melhor horário pra falar com você?', o: HORA }]); }
+  function start(o, pre) { pre = pre || {}; V.st = { o, i: 0, r: Object.assign({}, pre), m: [], list: o.steps.filter(s => !(s.k in pre)) }; V.mode = 'flow'; ask(); }
+  function steps() { return V.st.list.concat([{ k: 'Melhor horário', q: 'Pra finalizar: qual o melhor horário pra falar com você?', o: HORA }]); }
   function ask() {
     const S = V.st, st = steps()[S.i]; S.m[S.i] = V.log.children.length; V.q.innerHTML = '';
     const pre = S.ack ? S.ack + '\n' : ''; S.ack = '';
@@ -929,7 +947,7 @@ body.vlock{overflow:hidden}
     });
   }
   function back() { const S = V.st; if (!S || S.i < 1) return; S.i--; while (V.log.children.length > S.m[S.i]) V.log.lastChild.remove(); delete S.r[steps()[S.i].k]; ask(); }
-  const ACK = ['Anotado! 👍', 'Perfeito!', 'Show!', 'Beleza!', 'Entendi! 😊'];
+  const ACK = ['Anotado! 👍', 'Perfeito, obrigada!', 'Show!', 'Que bom! 😊', 'Entendi! 😊', 'Ótimo!'];
   function answer(t) {
     t = String(t).trim(); if (!t) return; vu(t); V.inp.value = '';
     const S = V.st, st = steps()[S.i]; S.r[st.k] = t; S.i++;
@@ -938,13 +956,13 @@ body.vlock{overflow:hidden}
   }
   function finish() {
     const S = V.st, o = S.o, lines = ['Olá! Vim pelo site da PV Vendas (atendimento da Vic).', '', '📋 ' + o.title.toUpperCase(), 'Nome: ' + (V.nome || '-')];
-    Object.keys(S.r).forEach(k => lines.push(k + ': ' + S.r[k])); if (o.note) lines.push('', o.note); if (V.img) lines.push('', '📷 Tenho a foto do produto, vou mandar aqui em seguida.');
+    Object.keys(S.r).forEach(k => { if (k !== 'Fotos') lines.push(k + ': ' + S.r[k]); }); if (S.r.Fotos === 'Mando depois' && !V.imgs.length) lines.push('', '📷 Mando as imagens da empresa depois.'); if (o.note) lines.push('', o.note); if (V.imgs.length) lines.push('', '📷 Tenho ' + (V.imgs.length > 1 ? V.imgs.length + ' imagens' : '1 imagem') + (o.k === 'catalogo' ? ' da empresa' : ' do produto') + ', vou mandar aqui em seguida.');
     const url = waLink(lines.join('\n'), o.py ? SITE.contacts.whatsappPy : SITE.contacts.whatsapp);
     V.mode = 'done'; V.q.innerHTML = '';
-    vb('Perfeito, ' + (first() || 'tudo certo') + '! Anotei tudo direitinho. Muito obrigada pela confiança! 💚', () => vb('Toque no botão pra mandar o resumo no WhatsApp' + (o.py ? '.' : ' pro Paulo.') + (o.k === 'vender' ? '\n📸 Já manda as fotos por lá também!' : '') + (V.img ? '\n📎 Depois é só mandar a foto do produto na conversa' + (canPic() ? ' (pode usar o botão de compartilhar aqui embaixo).' : '.') : ''), () => vq([
-      { t: 'Enviar resumo no WhatsApp ↗', c: 'go', href: url }].concat(canPic() ? [{ t: '📷 Compartilhar a foto no WhatsApp', c: 'wide', f: () => navigator.share({ files: [V.img], text: 'Foto do produto que eu quero (PV Vendas)' }).catch(() => {}) }] : []).concat([
+    vb('Perfeito, ' + (first() || 'tudo certo') + '! Anotei tudo direitinho. Muito obrigada pela confiança! 💚', () => vb('Toque no botão pra mandar o resumo no WhatsApp' + (o.py ? '.' : ' pro Paulo.') + (o.k === 'vender' ? '\n📸 Já manda as fotos por lá também!' : '') + (V.imgs.length ? '\n📎 Depois é só mandar ' + (V.imgs.length > 1 ? 'as imagens' : 'a imagem') + ' na conversa' + (canPic() ? ' (pode usar o botão de compartilhar aqui embaixo).' : '.') : ''), () => vq([
+      { t: 'Enviar resumo no WhatsApp ↗', c: 'go', href: url }].concat(canPic() ? [{ t: '📷 Compartilhar ' + (V.imgs.length > 1 ? 'as imagens' : 'a imagem') + ' no WhatsApp', c: 'wide', f: () => navigator.share({ files: V.imgs, text: 'Imagens para a PV Vendas' }).catch(() => {}) }] : []).concat([
       { t: '↩ Corrigir resposta', c: 'back', f: () => { S.i = steps().length; V.mode = 'flow'; back(); } },
-      { t: 'Começar de novo', c: 'wide', f: () => { V.log.innerHTML = ''; V.img = null; V.entry = ''; menu(); } }]))));
+      { t: 'Começar de novo', c: 'wide', f: () => { V.log.innerHTML = ''; V.imgs = []; V.entry = ''; menu(); } }]))));
   }
   const KEYS = [['comprar', /compr|quero um|carro|moto|onix|mobi|gol|corolla|cg|titan|fan|factor/], ['vender', /vend/], ['trocar', /troc/], ['buscar', /busc|procur|encontr|achar/],
     ['ipad', /ipad|tablet/], ['mac', /mac|notebook|laptop|computador/], ['fones', /fone|airpod|jbl|caixa de som|headset|[aá]udio/], ['celulares', /iphone|celular|apple|smartphone|android|samsung|xiaomi|eletr/], ['foto', /foto|imagem|print/], ['outros', /perfum|acess|rel[oó]gio|capinha/], ['catalogo', /site|cat[aá]logo|empresa|loja|card[aá]pio/]];
@@ -958,7 +976,7 @@ body.vlock{overflow:hidden}
     else vb('Hmm, essa eu não sei responder aqui. 😅 Toca numa das opções ou fala direto com a gente no WhatsApp.', () => vq(OPTS.map(o => ({ t: o.t, f: () => { vu(o.t); pick(o); } })).concat([{ t: 'Falar no WhatsApp ↗', c: 'go', href: waLink('Olá! Vim pelo site da PV Vendas.') }])));
   });
   $('#vicOpen').addEventListener('click', () => openVic());
-  document.addEventListener('click', e => { const a = e.target.closest('.tovic'); if (!a) return; e.preventDefault(); openVic(a.dataset.vic); });
+  document.addEventListener('click', e => { const a = e.target.closest('[data-vic]'); if (!a) return; e.preventDefault(); if (sheet.classList.contains('open') && typeof closeSheet === 'function') closeSheet(); openVic({ v: a.dataset.vic, item: a.dataset.item || '', cat: a.dataset.cat || '', kind: a.dataset.kind || '' }); });
   $('#vicX').addEventListener('click', closeVic);
   V.bg.addEventListener('click', e => { if (e.target === V.bg) closeVic(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !V.bg.hidden) closeVic(); });
